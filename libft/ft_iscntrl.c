@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_select.h                                        :+:      :+:    :+:   */
+/*   ft_iscntrl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 18:45:53 by nicolas          ###   ########.fr       */
+/*   Created: 2026/05/14 19:02:24 by nicolas           #+#    #+#             */
+/*   Updated: 2026/05/14 19:06:12 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SELECT_H
-# define FT_SELECT_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <termios.h>
-
-enum e_key
+int	ft_iscntrl(int c)
 {
-	KEY_UP,
-	KEY_DOWN,
-	KEY_LEFT,
-	KEY_RIGHT,
-	KEY_SPACE,
-	KEY_ENTER,
-	KEY_ESC,
-	KEY_BACKSPACE,
-	KEY_DELETE,
-	KEY_UNKNOWN
-};
-
-#endif
+    if (c >= 0 && c <= 31)
+        return (1);
+    else if (c == 127)
+        return (1);
+    else
+        return (0);
+}

@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_select.h                                        :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 18:45:53 by nicolas          ###   ########.fr       */
+/*   Created: 2024/09/13 18:26:06 by nponchon          #+#    #+#             */
+/*   Updated: 2024/09/13 18:30:47 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SELECT_H
-# define FT_SELECT_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <termios.h>
-
-enum e_key
+int	ft_tolower(int c)
 {
-	KEY_UP,
-	KEY_DOWN,
-	KEY_LEFT,
-	KEY_RIGHT,
-	KEY_SPACE,
-	KEY_ENTER,
-	KEY_ESC,
-	KEY_BACKSPACE,
-	KEY_DELETE,
-	KEY_UNKNOWN
-};
+	if (c >= 'A' && c <= 'Z')
+		c += 32;
+	return (c);
+}
+/*
+int	main(void)
+{
+	char	c;
 
-#endif
+	c = 0;
+	while (c < 127)
+	{
+		printf("%c = %c = %c\n", c, ft_tolower(c), tolower(c));
+		c++;
+	}
+	return (0);
+}*/

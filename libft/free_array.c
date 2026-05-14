@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_select.h                                        :+:      :+:    :+:   */
+/*   free_array.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 18:45:53 by nicolas          ###   ########.fr       */
+/*   Created: 2024/11/20 18:49:37 by nponchon          #+#    #+#             */
+/*   Updated: 2024/11/20 16:10:03 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SELECT_H
-# define FT_SELECT_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <termios.h>
-
-enum e_key
+void	free_array(void **array)
 {
-	KEY_UP,
-	KEY_DOWN,
-	KEY_LEFT,
-	KEY_RIGHT,
-	KEY_SPACE,
-	KEY_ENTER,
-	KEY_ESC,
-	KEY_BACKSPACE,
-	KEY_DELETE,
-	KEY_UNKNOWN
-};
+	int	i;
 
-#endif
+	if (array == NULL)
+		return ;
+	i = -1;
+	while (array[++i])
+		free(array[i]);
+	free(array);
+	array = NULL;
+}

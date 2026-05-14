@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_select.h                                        :+:      :+:    :+:   */
+/*   print_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 18:45:53 by nicolas          ###   ########.fr       */
+/*   Created: 2024/11/11 18:49:37 by nponchon          #+#    #+#             */
+/*   Updated: 2024/11/19 16:10:03 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SELECT_H
-# define FT_SELECT_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <termios.h>
-
-enum e_key
+void	print_array(char **array)
 {
-	KEY_UP,
-	KEY_DOWN,
-	KEY_LEFT,
-	KEY_RIGHT,
-	KEY_SPACE,
-	KEY_ENTER,
-	KEY_ESC,
-	KEY_BACKSPACE,
-	KEY_DELETE,
-	KEY_UNKNOWN
-};
+	int	i;
 
-#endif
+	i = -1;
+	while (array[++i])
+	{
+		ft_printf("%s ", array[i]);
+	}
+	ft_printf("\n");
+}

@@ -25,6 +25,8 @@ SRC				= 	main.c 	\
 
 INCLUDE			=	./inc/ft_select.h
 
+LIBFT			=	./libft/libft.a
+
 SRCDIR			=	src
 SRCS			=	$(addprefix $(SRCDIR)/, $(SRC))
 
@@ -36,7 +38,7 @@ DEPS			=	$(addprefix $(DEPDIR)/, $(SRC:.c=.d))
 
 CC				= cc
 RM				= rm -fr
-CFLAGS			= -Wall -Wextra -Werror -g
+CFLAGS			= # -Wall -Wextra -Werror -g
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
 	@mkdir -p $(@D)
@@ -45,19 +47,24 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
 	@mv $(patsubst %.o,%.d,$@) $(subst $(OBJDIR),$(DEPDIR),$(@D))/
 	@echo "${BLUE} ◎ $(BROWN)Compiling   ${MAGENTA}→   $(CYAN)$< $(DEF_COLOR)"
 
-all:	${NAME}
+all:	make_libft ${NAME}
+
+make_libft:
+	@make -C libft
 
 -include $(DEPS)
 ${NAME}: ${OBJS} Makefile
-	@$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)Created ${NAME} ✓$(DEF_COLOR)\n"
 
 clean:
 	@${RM} .dep .obj
+	@make -C libft clean
 	@echo "\n${BLUE} ◎ $(RED)All objects cleaned successfully ${BLUE}◎$(DEF_COLOR)\n"
 
 fclean:
 	@${RM} .dep .obj ${NAME}
+	@make -C libft fclean
 	@echo "\n${BLUE} ◎ $(RED)All objects and executable cleaned successfully${BLUE} ◎$(DEF_COLOR)\n"
 
 re: fclean all 
