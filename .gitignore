@@ -1,0 +1,9 @@
+ft_select
+
+*.o
+*.a
+*.so
+*.d
+
+.obj
+.dep
