@@ -6,13 +6,14 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 18:15:31 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/14 18:28:42 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int main(int ac, char **av) {
-    
-    
-    
-    return 0;
+int	main(int ac, char **av)
+{
+	(void)ac;
+	(void)av;
+
+	return (0);
 }
