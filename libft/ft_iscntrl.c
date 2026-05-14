@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:02:24 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 19:06:12 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/14 19:17:56 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	ft_iscntrl(int c)
 {
-    if (c >= 0 && c <= 31)
-        return (1);
-    else if (c == 127)
-        return (1);
-    else
-        return (0);
+	if (c >= 0 && c <= 31)
+		return (1);
+	else if (c == 127)
+		return (1);
+	else
+		return (0);
 }
