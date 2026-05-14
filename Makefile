@@ -24,6 +24,8 @@ GREEN := 		\033[0;92m
 SRC				= 	main.c 	\
 					keys.c 		\
 					render.c 	\
+					conf.c 		\
+					buffer.c 	\
 
 INCLUDE			=	./inc/ft_select.h
 
@@ -40,7 +42,7 @@ DEPS			=	$(addprefix $(DEPDIR)/, $(SRC:.c=.d))
 
 CC				= cc
 RM				= rm -fr
-CFLAGS			= # -Wall -Wextra -Werror -g
+CFLAGS			= -Wall -Wextra -Werror -g
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
 	@mkdir -p $(@D)

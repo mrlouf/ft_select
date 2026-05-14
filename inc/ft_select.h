@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 20:10:20 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/14 21:32:08 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,21 @@
 # include <unistd.h>
 # include <termios.h>
 # include <errno.h>
+# include <sys/ioctl.h>
 
 /* STRUCTURES */
+
+typedef struct s_string
+{
+	char	*str;
+	int		len;
+}	t_string;
 
 typedef struct s_select
 {
 	struct termios	orig_termios;
+	struct winsize	win_size;
+	struct s_string	buf;
 
 }	t_select;
 
@@ -46,11 +55,25 @@ enum e_key
 
 /* PROTOTYPES */
 
-void	disable_raw_mode(struct termios *orig_termios);
+// conf.c
+void	enable_raw_mode(struct s_select *s);
+void	disable_raw_mode(struct s_select *s);
+int		get_window_size(struct s_select *s);
+
+// keys.c
 int		ctrl_key(const int k);
-char	editor_read_key(void);
-void	fatal_error(const char *msg);
+char	editor_read_key(struct s_select *s);
+
+// render.c
 void	editor_process_keypress(struct s_select *s);
 void	editor_refresh_screen(void);
+void	editor_draw_arguments(char **args, int count, struct s_select *s);
+
+// buffer.c
+void	append_buffer(struct s_select *s, const char *str, int len);
+void	write_buffer(struct s_string buf);
+void	clear_buffer(struct s_select *s);
+
+void	fatal_error(const char *msg, struct s_select *s);
 
 #endif
