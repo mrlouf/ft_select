@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 21:32:08 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/14 22:03:40 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,21 @@ typedef struct s_string
 	int		len;
 }	t_string;
 
+typedef struct s_cursor
+{
+	int	x;
+	int	y;
+}	t_cursor;
+
 typedef struct s_select
 {
 	struct termios	orig_termios;
 	struct winsize	win_size;
 	struct s_string	buf;
+	struct s_cursor	cursor;
+
+	char			**av;
+	int				ac;
 
 }	t_select;
 
@@ -65,9 +75,10 @@ int		ctrl_key(const int k);
 char	editor_read_key(struct s_select *s);
 
 // render.c
+void	render_terminal(struct s_select *s);
 void	editor_process_keypress(struct s_select *s);
-void	editor_refresh_screen(void);
-void	editor_draw_arguments(char **args, int count, struct s_select *s);
+void	editor_refresh_screen(struct s_select *s);
+void	editor_draw_arguments(struct s_select *s);
 
 // buffer.c
 void	append_buffer(struct s_select *s, const char *str, int len);

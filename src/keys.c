@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:43:28 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 20:36:30 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/14 22:05:39 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	editor_read_key(struct s_select *s)
 	int		nread;
 	char	c;
 
-	nread = read(STDIN_FILENO, &c, 1);
+	nread = 0;
 
 	while (nread != 1)
 	{
@@ -37,6 +37,11 @@ void	editor_process_keypress(struct s_select *s)
 	{
 		disable_raw_mode(s);
 		exit(EXIT_SUCCESS);
+	}
+	else if (c == ctrl_key('s'))
+	{
+		s->cursor.x = 0;
+		s->cursor.y++;
 	}
 }
 
