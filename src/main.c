@@ -6,21 +6,23 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 19:34:46 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/14 20:10:33 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 #include "../libft/libft.h"
 
-static void	fatal_error(const char *s)
+void	fatal_error(const char *s)
 {
+	write(STDOUT_FILENO, "\x1b[2J", 4);
+	write(STDOUT_FILENO, "\x1b[H", 3);
 	ft_putstr_fd("Error: ", STDERR_FILENO);
 	ft_putendl_fd((char *)s, STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
 
-static void	disable_raw_mode(struct termios *orig_termios)
+void	disable_raw_mode(struct termios *orig_termios)
 {
 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, orig_termios) == -1)
 		fatal_error("tcsetattr");
@@ -42,33 +44,25 @@ static void	enable_raw_mode(void)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 }
 
-int	ft_select(char **options, int count)
+static int	ft_select(char **options, int count, struct s_select *s)
 {
-	char	c;
-
 	while (1)
 	{
-		c = '\0';
-
-		if (read(STDIN_FILENO, &c, 1) == -1 && errno != EAGAIN)
-			fatal_error("read");
-		if (ft_iscntrl(c))
-			printf("%d\r\n", c);
-		else
-			printf("%d ('%c')\r\n", c, c);
-		if (c == 'q')
-			break ;
+		editor_refresh_screen();
+		editor_process_keypress(s);
 	}
 	return (0);
 }
 
 int	main(int ac, char **av)
 {
-	struct termios	orig_termios;
+	struct s_select	s;
 
-	tcgetattr(STDIN_FILENO, &orig_termios);
+	s.orig_termios = (struct termios){0};
+
+	tcgetattr(STDIN_FILENO, &s.orig_termios);
 	enable_raw_mode();
-	ft_select(av + 1, ac - 1);
-	disable_raw_mode(&orig_termios);
+	ft_select(av + 1, ac - 1, &s);
+	disable_raw_mode(&s.orig_termios);
 	return (0);
 }

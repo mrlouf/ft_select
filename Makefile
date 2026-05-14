@@ -22,6 +22,8 @@ DARK_YELLOW =	\033[38;5;143m
 GREEN := 		\033[0;92m
 
 SRC				= 	main.c 	\
+					keys.c 		\
+					render.c 	\
 
 INCLUDE			=	./inc/ft_select.h
 
