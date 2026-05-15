@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:54:14 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 21:58:56 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/15 10:13:23 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,24 @@ void	editor_draw_arguments(struct s_select *s)
 void	editor_refresh_screen(struct s_select *s)
 {
 	append_buffer(s, "\x1b[?25l", 6);
-	append_buffer(s, "\x1b[2J", 4);
+	// append_buffer(s, "\x1b[2J", 4);
 	append_buffer(s, "\x1b[H", 3);
 
 	editor_draw_arguments(s);
 
-	append_buffer(s, "\x1b[H", 3);
+	//append_buffer(s, "\x1b[6;5H", 6);
+	#include <stdio.h>
+	char	buf[32];
+	snprintf(buf, 32, "\x1b[%d;%dH", s->cursor.y+1, s->cursor.x+1);
+	append_buffer(s, buf, ft_strlen(buf));
+
 	append_buffer(s, "\x1b[?25h", 6);
 }
 
 void	render_terminal(struct s_select *s)
 {
 	editor_refresh_screen(s);
-	append_buffer(s, "\x1b[H", 3);
+	//append_buffer(s, "\x1b[H", 3);
 	write_buffer(s->buf);
 	clear_buffer(s);
 }

@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 22:03:40 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/15 10:35:46 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <termios.h>
+# include <termcap.h>
 # include <errno.h>
 # include <sys/ioctl.h>
+# include <fcntl.h>
 
 /* STRUCTURES */
 
@@ -44,6 +46,8 @@ typedef struct s_select
 
 	char			**av;
 	int				ac;
+
+	int				fd_logfile;
 
 }	t_select;
 
@@ -85,6 +89,7 @@ void	append_buffer(struct s_select *s, const char *str, int len);
 void	write_buffer(struct s_string buf);
 void	clear_buffer(struct s_select *s);
 
+void	log_info(struct s_select *s, const char *str);
 void	fatal_error(const char *msg, struct s_select *s);
 
 #endif

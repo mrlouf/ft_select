@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 21:05:07 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/15 10:22:45 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	get_window_size(struct s_select *s)
 	{
 		if (write(STDOUT_FILENO, "\x1b[999C\x1b[999B", 12) != 12)
 			return (-1);
-
 		editor_read_key(s);
 		return (-1);
 	}
@@ -37,6 +36,10 @@ void	disable_raw_mode(struct s_select *s)
 {
 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &s->orig_termios) == -1)
 		fatal_error("tcsetattr failed", s);
+	tputs(tgetstr("ve", NULL), 1, putchar);
+	tputs(tgetstr("me", NULL), 1, putchar);
+	tputs(tgetstr("te", NULL), 1, putchar);
+	write(1, "\n", 1);
 }
 
 void	enable_raw_mode(struct s_select *s)

@@ -40,6 +40,8 @@ OBJS			=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 DEPDIR			=	.dep
 DEPS			=	$(addprefix $(DEPDIR)/, $(SRC:.c=.d))
 
+LOGFILE			=	./ft_select.log
+
 CC				= cc
 RM				= rm -fr
 CFLAGS			= -Wall -Wextra -Werror -g
@@ -57,8 +59,9 @@ make_libft:
 	@make -C libft
 
 -include $(DEPS)
+
 ${NAME}: ${OBJS} Makefile
-	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -ltinfo -o $(NAME)
 	@echo "$(GREEN)Created ${NAME} ✓$(DEF_COLOR)\n"
 
 clean:
@@ -67,7 +70,7 @@ clean:
 	@echo "\n${BLUE} ◎ $(RED)All objects cleaned successfully ${BLUE}◎$(DEF_COLOR)\n"
 
 fclean:
-	@${RM} .dep .obj ${NAME}
+	@${RM} .dep .obj ${NAME} ${LOGFILE}
 	@make -C libft fclean
 	@echo "\n${BLUE} ◎ $(RED)All objects and executable cleaned successfully${BLUE} ◎$(DEF_COLOR)\n"
 
