@@ -6,15 +6,25 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 12:36:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/15 12:37:00 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/15 12:45:57 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+#include "../libft/libft.h"
 
-void    tc_move_cursor(int x, int y)
+void	tc_move_cursor(int x, int y)
 {
-    char buf[32];
-    snprintf(buf, 32, "\x1b[%d;%dH", y + 1, x + 1);
-    write(STDOUT_FILENO, buf, ft_strlen(buf));
+    char *cm;
+
+    cm = tgetstr("cm", NULL);
+    tputs(tgoto(cm, x, y), 1, ft_putchar);
+}
+
+void	tc_clear_screen(void)
+{
+	char *cl;
+
+	cl = tgetstr("cl", NULL);
+	tputs(cl, 1, ft_putchar);
 }

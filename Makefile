@@ -26,6 +26,7 @@ SRC				= 	main.c 	\
 					render.c 	\
 					conf.c 		\
 					buffer.c 	\
+					termcap.c	\
 
 INCLUDE			=	./inc/ft_select.h
 
@@ -44,7 +45,7 @@ LOGFILE			=	./ft_select.log
 
 CC				= cc
 RM				= rm -fr
-CFLAGS			= -Wall -Wextra -Werror -g
+CFLAGS			= # -Wall -Wextra -Werror -g
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
 	@mkdir -p $(@D)

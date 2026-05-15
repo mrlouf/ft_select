@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/15 12:30:46 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/15 12:47:36 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	main(int ac, char **av)
 	tputs(tgetstr("vi", NULL), 1, putchar);
 	ft_select(&s);
 	disable_raw_mode(&s);
+	tc_clear_screen();
 
 	// * DEBUG: Close the log file if opened
 	if (s.fd_logfile != -1)

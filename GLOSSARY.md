@@ -6,6 +6,13 @@ Lastly, the project requires the mandatory use of the `termcap` library, which h
 
 This glossary is an attempt to document the key codes, escape sequences, and termcap functions that are relevant to this project, and how they compare to ANSI equivalents.
 
+## Termcap Functions
+
+- `tgetent(char *bp, const char *name)`: Loads the entry for the terminal name into the buffer `bp`. This is used to initialize the termcap system and retrieve the capabilities of the terminal.
+- `tgetstr(const char *id, char **area)`: Retrieves the string capability with the given identifier `id` and stores it in the area pointed to by `area`. This is used to get the control sequences for various terminal actions (like moving the cursor, clearing the screen, etc.).
+- `tgetnum(const char *id)`: Retrieves the numeric capability with the given identifier `id`. This is used to get numeric values for terminal capabilities (like the number of columns and lines).
+- `tgetflag(const char *id)`: Retrieves the boolean capability with the given identifier `id`. This is used to check for the presence of certain features in the terminal (like whether it supports color, etc.).
+
 ## Key Codes
 
 - `KEY_UP`: The key code for the up arrow key. This is typically represented as `\x1b[A` in ANSI escape codes.

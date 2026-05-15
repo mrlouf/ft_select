@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/15 12:21:52 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/15 12:45:16 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,10 @@ void	editor_draw_arguments(struct s_select *s);
 void	append_buffer(struct s_select *s, const char *str, int len);
 void	write_buffer(int fd, struct s_string buf);
 void	clear_buffer(struct s_select *s);
+
+// termcap.c
+void	tc_move_cursor(int x, int y);
+void	tc_clear_screen(void);
 
 void	log_info(struct s_select *s, const char *str);
 void	fatal_error(const char *msg, struct s_select *s);
