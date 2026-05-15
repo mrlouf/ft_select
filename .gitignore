@@ -7,3 +7,5 @@ ft_select
 
 .obj
 .dep
+
+*.log
