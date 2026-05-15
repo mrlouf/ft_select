@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 21:28:35 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 21:40:39 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/15 12:20:13 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	clear_buffer(struct s_select *s)
 	s->buf.len = 0;
 }
 
-void	write_buffer(struct s_string buf)
+void	write_buffer(int fd, struct s_string buf)
 {
-	write(STDOUT_FILENO, buf.str, buf.len);
+	write(fd, buf.str, buf.len);
 }

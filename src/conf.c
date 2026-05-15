@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/15 10:22:45 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/15 12:27:01 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,23 @@ int	get_window_size(struct s_select *s)
 
 void	disable_raw_mode(struct s_select *s)
 {
-	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &s->orig_termios) == -1)
-		fatal_error("tcsetattr failed", s);
 	tputs(tgetstr("ve", NULL), 1, putchar);
 	tputs(tgetstr("me", NULL), 1, putchar);
 	tputs(tgetstr("te", NULL), 1, putchar);
 	write(1, "\n", 1);
+	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &s->orig_termios) == -1)
+		fatal_error("tcsetattr failed", s);
+	log_info(s, "Raw mode disabled, terminal should be cleaned up");
 }
 
 void	enable_raw_mode(struct s_select *s)
 {
 	struct termios	raw;
 
+	raw = s->orig_termios;
+	tgetent(NULL, getenv("TERM"));
+	tputs(tgetstr("ti", NULL), 1, putchar);
+	tputs(tgetstr("vi", NULL), 1, putchar);
 	if (tcgetattr(STDIN_FILENO, &raw) == -1)
 		fatal_error("tcgetattr failed", s);
 	tcgetattr(STDIN_FILENO, &raw);
