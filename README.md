@@ -9,3 +9,4 @@ The main objective is to create a simple program that will take a list of argume
 ### References
 
 [https://viewsourcecode.org/snaptoken/kilo/](https://viewsourcecode.org/snaptoken/kilo/)
+[https://www.man7.org/linux/man-pages/man5/termcap.5.html](https://www.man7.org/linux/man-pages/man5/termcap.5.html)

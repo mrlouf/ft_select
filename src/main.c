@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/17 15:36:49 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/17 16:41:15 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,6 @@ static int	ft_select(struct s_select *s)
 		editor_process_keypress(s);
 	}
 	return (0);
-}
-
-static void	signal_handler(int signum)
-{
-	(void)signum;
-}
-
-static void	setup_signal_handlers(void)
-{
-	signal(SIGWINCH, signal_handler);
-	signal(SIGINT, signal_handler);
-	signal(SIGTERM, signal_handler);
-	signal(SIGTSTP, signal_handler);
-	signal(SIGCONT, signal_handler);
 }
 
 static int check_environment(struct s_select *s)
@@ -112,10 +98,10 @@ int	main(int ac, char **av)
 {
 	struct s_select	s;
 
-	setup_signal_handlers();
 	initialize_select(&s);
 	s.av = av + 1;
 	s.ac = ac - 1;
+	setup_signal_handlers(&s);
 
 	enable_raw_mode(&s);
 	tputs(tgetstr("ti", NULL), 1, putchar);

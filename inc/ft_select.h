@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/17 14:57:54 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/17 16:41:30 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ enum e_key
 };
 
 /* PROTOTYPES */
+
+// signal.c
+void	setup_signal_handlers(struct s_select *s);
 
 // conf.c
 void	enable_raw_mode(struct s_select *s);

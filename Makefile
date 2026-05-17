@@ -22,6 +22,7 @@ DARK_YELLOW =	\033[38;5;143m
 GREEN := 		\033[0;92m
 
 SRC				= 	main.c 	\
+					signal.c 	\
 					keys.c 		\
 					moves.c 	\
 					render.c 	\
