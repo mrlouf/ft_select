@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:54:14 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/15 12:47:20 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/17 14:31:13 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	editor_draw_arguments(struct s_select *s)
 {
-/* 	int	i;
+	int	i;
 
 	i = 0;
 	while (i < s->win_size.ws_row - 1 && i < s->ac)
@@ -23,30 +23,16 @@ void	editor_draw_arguments(struct s_select *s)
 		append_buffer(s, s->av[i], ft_strlen(s->av[i]));
 		append_buffer(s, "\r\n", 2);
 		i++;
-	} */
-
-	for (int i = 0; i < s->win_size.ws_row - 1; i++)
-	{
-		for (int j = 0; j < s->win_size.ws_col - 1; j++)
-		{
-			append_buffer(s, "*", 1);
-		}
-		append_buffer(s, "\r\n", 2);
 	}
 }
 
 void	editor_refresh_screen(struct s_select *s)
 {
-	/* append_buffer(s, "\x1b[?25l", 6);
-	append_buffer(s, "\x1b[2J", 4);
-	append_buffer(s, "\x1b[H", 3); */
-
-	append_buffer(s, "\x1b[2J", 4);
+	tc_clear_screen();
 	append_buffer(s, "\x1b[H", 3);
 
 	editor_draw_arguments(s);
 
-	//append_buffer(s, "\x1b[6;5H", 6);
 	char	buf[32];
 	snprintf(buf, 32, "\x1b[%d;%dH", s->cursor.y+1, s->cursor.x+1);
 	append_buffer(s, buf, ft_strlen(buf));

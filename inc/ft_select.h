@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/15 12:45:16 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/17 14:57:54 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,23 @@ typedef struct s_cursor
 	int	y;
 }	t_cursor;
 
+typedef struct s_termcaps
+{
+    char    *cm;
+    char    *cl;
+    char    *mr;
+    char    *me;
+    char    *vi;
+    char    *ve;
+}	t_termcaps;
+
 typedef struct s_select
 {
-	struct termios	orig_termios;
-	struct winsize	win_size;
-	struct s_string	buf;
-	struct s_cursor	cursor;
+	struct termios		orig_termios;
+	struct winsize		win_size;
+	struct s_string		buf;
+	struct s_cursor		cursor;
+	struct s_termcaps	termcaps;
 
 	char			**av;
 	int				ac;
@@ -86,6 +97,12 @@ int		get_window_size(struct s_select *s);
 int		ctrl_key(const int k);
 int		editor_read_key(struct s_select *s);
 
+// moves.c
+void	handle_up_key(struct s_select *s);
+void	handle_down_key(struct s_select *s);
+void    handle_right_key(struct s_select *s);
+void    handle_left_key(struct s_select *s);
+
 // render.c
 void	render_terminal(struct s_select *s);
 void	editor_process_keypress(struct s_select *s);
@@ -98,7 +115,7 @@ void	write_buffer(int fd, struct s_string buf);
 void	clear_buffer(struct s_select *s);
 
 // termcap.c
-void	tc_move_cursor(int x, int y);
+void	tc_move_cursor(struct s_select *s);
 void	tc_clear_screen(void);
 
 void	log_info(struct s_select *s, const char *str);

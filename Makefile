@@ -23,6 +23,7 @@ GREEN := 		\033[0;92m
 
 SRC				= 	main.c 	\
 					keys.c 		\
+					moves.c 	\
 					render.c 	\
 					conf.c 		\
 					buffer.c 	\
@@ -45,7 +46,7 @@ LOGFILE			=	./ft_select.log
 
 CC				= cc
 RM				= rm -fr
-CFLAGS			= # -Wall -Wextra -Werror -g
+CFLAGS			= -g -fsanitize=address # -Wall -Wextra -Werror -g
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
 	@mkdir -p $(@D)
@@ -55,6 +56,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
 	@echo "${BLUE} ◎ $(BROWN)Compiling   ${MAGENTA}→   $(CYAN)$< $(DEF_COLOR)"
 
 all:	make_libft ${NAME}
+	@rm -f $(LOGFILE)
 
 make_libft:
 	@make -C libft

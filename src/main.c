@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/15 12:47:36 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/17 14:10:46 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,22 @@ static void	setup_signal_handlers(void)
 
 static void	initialize_select(struct s_select *s)
 {
-	s->orig_termios = (struct termios){0};
+	if (tcgetattr(STDIN_FILENO, &s->orig_termios) == -1)
+		exit(EXIT_FAILURE);
 	s->win_size = (struct winsize){0};
 	s->buf = (struct s_string){NULL, 0};
 	s->cursor = (struct s_cursor){0, 0};
+	s->termcaps = (struct s_termcaps){0};
 	s->av = NULL;
 	s->ac = 0;
 	s->fd_tty = -1;
+	if ((s->fd_tty = open("/dev/tty", O_RDWR)) == -1)
+		exit(EXIT_FAILURE);
+
+	// * DEBUG: Open a log file to write debug information to
 	s->fd_logfile = -1;
+	if ((s->fd_logfile = open("ft_select.log", O_WRONLY | O_CREAT, 0644)) == -1)
+		fatal_error("Unable to open log file", s);
 }
 
 int	main(int ac, char **av)
@@ -84,16 +92,6 @@ int	main(int ac, char **av)
 	s.av = av + 1;
 	s.ac = ac - 1;
 
-	s.fd_tty = -1;
-	if ((s.fd_tty = open("/dev/tty", O_RDWR)) == -1)
-		exit(EXIT_FAILURE);
-
-	// * DEBUG: Open a log file to write debug information to
-	s.fd_logfile = -1;
-	if ((s.fd_logfile = open("ft_select.log", O_WRONLY | O_CREAT, 0644)) == -1)
-		fatal_error("Unable to open log file", &s);
-
-	tcgetattr(STDIN_FILENO, &s.orig_termios);
 	enable_raw_mode(&s);
 	tputs(tgetstr("ti", NULL), 1, putchar);
 	tputs(tgetstr("vi", NULL), 1, putchar);

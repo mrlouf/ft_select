@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:43:28 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/15 12:04:45 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/17 14:58:21 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,14 +133,14 @@ int editor_read_key(struct s_select *s)
 
 static void	editor_move_cursor(struct s_select *s, int key)
 {
-	if (key == KEY_UP && s->cursor.y > 0)
-		s->cursor.y--;
-	else if (key == KEY_DOWN && s->cursor.y < s->win_size.ws_row - 1)
-		s->cursor.y++;
-	else if (key == KEY_LEFT && s->cursor.x > 0)
-		s->cursor.x--;
-	else if (key == KEY_RIGHT && s->cursor.x < s->win_size.ws_col - 1)
-		s->cursor.x++;
+	if (key == KEY_UP)
+		handle_up_key(s);
+	else if (key == KEY_DOWN)
+		handle_down_key(s);
+	else if (key == KEY_LEFT)
+		handle_left_key(s);
+	else if (key == KEY_RIGHT)
+		handle_right_key(s);
 	else if (key == KEY_HOME)
 		s->cursor.x = 0;
 	else if (key == KEY_END)
@@ -164,8 +164,6 @@ void	editor_process_keypress(struct s_select *s)
 	c = editor_read_key(s);
 
 	char	buf[32];
-
-	#include <stdio.h>
 	snprintf(buf, 32, "Key pressed: %d", c);
 	log_info(s, buf);
 
