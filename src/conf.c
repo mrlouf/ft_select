@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/17 13:28:41 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/17 15:27:08 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,14 @@ void	disable_raw_mode(struct s_select *s)
 void	enable_raw_mode(struct s_select *s)
 {
 	struct termios	raw;
+	char			*term;
 
 	raw = s->orig_termios;
-	tgetent(NULL, getenv("TERM"));
+	term = getenv("TERM");
+	if (term == NULL)
+		fatal_error("TERM environment variable not set", s);
+	if (tgetent(NULL, term) <= 0)
+		fatal_error("Could not access the termcap database", s);
 	tputs(tgetstr("ti", NULL), 1, putchar);
 	tputs(tgetstr("vi", NULL), 1, putchar);
 	if (tcgetattr(STDIN_FILENO, &raw) == -1)

@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/17 14:10:46 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/17 15:36:49 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,35 @@ static void	setup_signal_handlers(void)
 	signal(SIGCONT, signal_handler);
 }
 
+static int check_environment(struct s_select *s)
+{
+	char *term;
+
+	if (!isatty(STDIN_FILENO)) {
+		ft_putstr_fd("Error: stdin is not a tty\n", STDERR_FILENO);
+		return (-1);
+	}
+	term = getenv("TERM");
+	if (!term) {
+		ft_putstr_fd("Error: TERM environment variable not set\n", STDERR_FILENO);
+		return (-1);
+	}
+	if (tgetent(NULL, term) <= 0) {
+		ft_putstr_fd("Error: Could not access the termcap database\n", STDERR_FILENO);
+		return (-1);
+	}
+	if (tcgetattr(STDIN_FILENO, &s->orig_termios) == -1) {
+		ft_putstr_fd("Error: tcgetattr failed\n", STDERR_FILENO);
+		return (-1);
+	}
+	return (0);
+}
+
 static void	initialize_select(struct s_select *s)
 {
-	if (tcgetattr(STDIN_FILENO, &s->orig_termios) == -1)
+	if (check_environment(s) == -1)
 		exit(EXIT_FAILURE);
+
 	s->win_size = (struct winsize){0};
 	s->buf = (struct s_string){NULL, 0};
 	s->cursor = (struct s_cursor){0, 0};
