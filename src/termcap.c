@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 12:36:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/17 14:46:00 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/18 11:49:45 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 
 void	tc_move_cursor(struct s_select *s)
 {
-    tputs(tgoto(s->termcaps.cm, s->cursor.x, s->cursor.y), 1, ft_putchar);
+	char	*pos;
+
+	pos = tgoto(s->termcaps.cm, s->cursor.x, s->cursor.y);
+	tputs(pos, 1, ft_putchar);
 }
 
 void	tc_clear_screen(void)

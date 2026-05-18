@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:43:28 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/17 14:58:21 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/18 11:47:19 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,14 +141,14 @@ static void	editor_move_cursor(struct s_select *s, int key)
 		handle_left_key(s);
 	else if (key == KEY_RIGHT)
 		handle_right_key(s);
-	else if (key == KEY_HOME)
+/* 	else if (key == KEY_HOME)
 		s->cursor.x = 0;
 	else if (key == KEY_END)
 		s->cursor.x = s->win_size.ws_col - 1;
 	else if (key == KEY_PAGE_UP)
 		s->cursor.y = 0;
 	else if (key == KEY_PAGE_DOWN)
-		s->cursor.y = s->win_size.ws_row - 1;
+		s->cursor.y = s->win_size.ws_row - 1; */
 }
 
 static int	is_moving_key(int key)
