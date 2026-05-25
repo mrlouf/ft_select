@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 15:45:26 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 16:25:05 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_select(struct s_select *s)
 {
 	while (1)
 	{
-		if (get_window_size() == -1)
+		if (get_window_size(s) == -1)
 			fatal_error("Unable to get window size");
 		render_terminal(s);
 		process_keypress(s);

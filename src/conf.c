@@ -6,14 +6,14 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 15:24:07 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 16:24:39 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 #include "../libft/libft.h"
 
-int	get_window_size(void)
+int	get_window_size(struct s_select *s)
 {
 	struct winsize	ws;
 
@@ -24,8 +24,8 @@ int	get_window_size(void)
 	}
 	else
 	{
-		g_win_size.ws_col = ws.ws_col;
-		g_win_size.ws_row = ws.ws_row;
+		s->win_size.ws_col = ws.ws_col;
+		s->win_size.ws_row = ws.ws_row;
 		return (0);
 	}
 	return (-1);

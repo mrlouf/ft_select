@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 14:51:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 15:45:05 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 16:25:31 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,41 +17,41 @@ static void	handle_up_key(struct s_select *s)
 {
 	if (s->ac == 0)
 		return ;
-	if (g_cursor.y > 0)
-		g_cursor.y--;
+	if (s->cursor.y > 0)
+		s->cursor.y--;
 	else
-		g_cursor.y = s->ac - 1;
-	if (g_cursor.x > (int)ft_strlen(s->av[g_cursor.y]) - 1)
-		g_cursor.x = ft_strlen(s->av[g_cursor.y]) - 1;
+		s->cursor.y = s->ac - 1;
+	if (s->cursor.x > (int)ft_strlen(s->av[s->cursor.y]) - 1)
+		s->cursor.x = ft_strlen(s->av[s->cursor.y]) - 1;
 }
 
 static void	handle_down_key(struct s_select *s)
 {
 	if (s->ac == 0)
 		return ;
-	if (g_cursor.y < s->ac - 1)
-		g_cursor.y++;
+	if (s->cursor.y < s->ac - 1)
+		s->cursor.y++;
 	else
-		g_cursor.y = 0;
-	if (g_cursor.x > (int)ft_strlen(s->av[g_cursor.y]) - 1)
-		g_cursor.x = ft_strlen(s->av[g_cursor.y]) - 1;
+		s->cursor.y = 0;
+	if (s->cursor.x > (int)ft_strlen(s->av[s->cursor.y]) - 1)
+		s->cursor.x = ft_strlen(s->av[s->cursor.y]) - 1;
 }
 
 static void	handle_right_key(struct s_select *s)
 {
 	if (s->ac == 0)
 		return ;
-	if (g_cursor.x < g_win_size.ws_col - 1
-		&& g_cursor.x < (int)ft_strlen(s->av[g_cursor.y]) - 1)
-		g_cursor.x++;
+	if (s->cursor.x < s->win_size.ws_col - 1
+		&& s->cursor.x < (int)ft_strlen(s->av[s->cursor.y]) - 1)
+		s->cursor.x++;
 }
 
 static void	handle_left_key(struct s_select *s)
 {
 	if (s->ac == 0)
 		return ;
-	if (g_cursor.x > 0)
-		g_cursor.x--;
+	if (s->cursor.x > 0)
+		s->cursor.x--;
 }
 
 void	move_cursor(struct s_select *s, int key)

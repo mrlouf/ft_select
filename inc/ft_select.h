@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 15:45:17 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 16:24:46 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_select
 {
 	struct s_string		buf;
 	struct s_termcaps	termcaps;
+	struct s_cursor		cursor;
+	struct winsize		win_size;
 
 	char				**av;
 	int					ac;
@@ -64,8 +66,6 @@ typedef struct s_select
 /* GLOBAL VARIABLES */
 
 extern struct termios	g_orig_termios;
-extern struct winsize	g_win_size;
-extern struct s_cursor	g_cursor;
 
 /* ENUMERATIONS */
 
@@ -92,7 +92,7 @@ void	setup_signal_handlers(void);
 // conf.c
 void	enable_raw_mode(void);
 void	disable_raw_mode(void);
-int		get_window_size(void);
+int		get_window_size(struct s_select *s);
 
 // keys.c
 int		read_key(void);
