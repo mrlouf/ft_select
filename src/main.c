@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 13:26:09 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 14:06:06 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ struct termios	g_orig_termios;
 struct winsize	g_win_size;
 struct s_cursor	g_cursor;
 
-void	fatal_error(const char *str, struct s_select *s)
+void	fatal_error(const char *str)
 {
 	write(STDOUT_FILENO, "\x1b[2J", 4);
 	write(STDOUT_FILENO, "\x1b[H", 3);
@@ -45,8 +45,8 @@ static int	ft_select(struct s_select *s)
 {
 	while (1)
 	{
-		if (get_window_size(s) == -1)
-			fatal_error("Unable to get window size", s);
+		if (get_window_size() == -1)
+			fatal_error("Unable to get window size");
 		render_terminal(s);
 		editor_process_keypress(s);
 	}
@@ -57,7 +57,7 @@ static int	ft_select(struct s_select *s)
 	return (0);
 }
 
-static int check_environment(struct s_select *s)
+static int check_environment(void)
 {
 	char *term;
 
@@ -83,7 +83,7 @@ static int check_environment(struct s_select *s)
 
 static void	initialize_select(struct s_select *s)
 {
-	if (check_environment(s) == -1)
+	if (check_environment() == -1)
 		exit(EXIT_FAILURE);
 
 	s->buf = (struct s_string){NULL, 0};
@@ -97,7 +97,7 @@ static void	initialize_select(struct s_select *s)
 	// * DEBUG: Open a log file to write debug information to
 	s->fd_logfile = -1;
 	if ((s->fd_logfile = open("ft_select.log", O_WRONLY | O_CREAT, 0644)) == -1)
-		fatal_error("Unable to open log file", s);
+		fatal_error("Unable to open log file");
 }
 
 int	main(int ac, char **av)
@@ -109,7 +109,7 @@ int	main(int ac, char **av)
 	s.ac = ac - 1;
 	setup_signal_handlers(&s);
 
-	enable_raw_mode(&s);
+	enable_raw_mode();
 	ft_select(&s);
 	disable_raw_mode();
 	tc_clear_screen();

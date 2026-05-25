@@ -48,7 +48,7 @@ LOGFILE			=	./ft_select.log
 
 CC				= cc
 RM				= rm -fr
-CFLAGS			= -g -fsanitize=address # -Wall -Wextra -Werror -g
+CFLAGS			= -g -fsanitize=address -Wall -Wextra -Werror
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
 	@mkdir -p $(@D)

@@ -6,14 +6,14 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 13:38:17 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 14:06:49 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 #include "../libft/libft.h"
 
-int	get_window_size(struct s_select *s)
+int	get_window_size(void)
 {
 	struct winsize	ws;
 
@@ -28,6 +28,7 @@ int	get_window_size(struct s_select *s)
 		g_win_size.ws_row = ws.ws_row;
 		return (0);
 	}
+	return (-1);
 }
 
 /* 
@@ -59,10 +60,9 @@ void    disable_raw_mode(void)
 	This will disable canonical mode, echoing, and other features
 	that would interfere with our ability to read keypresses directly.
 */
-void	enable_raw_mode(struct s_select *s)
+void	enable_raw_mode(void)
 {
 	struct termios	raw;
-	char			*term;
 	char			*buf[2048];
 	char			*cap;
 
@@ -74,7 +74,7 @@ void	enable_raw_mode(struct s_select *s)
 	if (cap)
 		tputs(cap, 1, ft_putchar);
 	if (tcgetattr(STDIN_FILENO, &raw) == -1)
-		fatal_error("tcgetattr failed", s);
+		fatal_error("tcgetattr failed to enable raw mode");
 	raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
 	raw.c_oflag &= ~(OPOST);
 	raw.c_cflag |= (CS8);

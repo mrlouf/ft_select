@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 13:55:25 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 14:05:59 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ enum e_key
 void	setup_signal_handlers();
 
 // conf.c
-void	enable_raw_mode(struct s_select *s);
+void	enable_raw_mode(void);
 void	disable_raw_mode(void);
-int		get_window_size(struct s_select *s);
+int		get_window_size(void);
 
 // keys.c
-int		editor_read_key(struct s_select *s);
+int		editor_read_key(void);
 
 // moves.c
 void	editor_move_cursor(struct s_select *s, int key);
@@ -121,6 +121,6 @@ void	tc_move_cursor(struct s_select *s);
 void	tc_clear_screen(void);
 
 void	log_info(struct s_select *s, const char *str);
-void	fatal_error(const char *msg, struct s_select *s);
+void	fatal_error(const char *msg);
 
 #endif

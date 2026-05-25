@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:43:28 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 13:55:56 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 14:07:01 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@
 	Read a key input from the user and return it.
 	This function will block until a key is pressed.
 */
-int editor_read_key(struct s_select *s)
+int editor_read_key(void)
 {
 	int nread;
 	char c;
 	while ((nread = read(STDIN_FILENO, &c, 1)) != 1)
 	{
 		if (nread == -1 && errno != EAGAIN && errno != EINTR)
-			fatal_error("read", s);
+			fatal_error("could not read key input");
 	}
 	if (c == '\x1b')
 	{
@@ -113,7 +113,7 @@ void	editor_process_keypress(struct s_select *s)
 {
 	int	c;
 
-	c = editor_read_key(s);
+	c = editor_read_key();
 
 	char	buf[32];
 	snprintf(buf, 32, "Key pressed: %d", c);
