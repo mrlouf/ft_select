@@ -6,12 +6,40 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 12:36:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 16:44:01 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 17:03:51 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 #include "../libft/libft.h"
+
+void	tc_invert_colours(struct s_select *s)
+{
+	append_buffer(s, s->termcaps.mr, ft_strlen(s->termcaps.mr));
+}
+
+void	tc_reset_colours(struct s_select *s)
+{
+	append_buffer(s, s->termcaps.me, ft_strlen(s->termcaps.me));
+}
+
+void	tc_set_cursor_visibility(struct s_select *s, int invisible)
+{
+	if (invisible)
+		append_buffer(s, s->termcaps.ve, ft_strlen(s->termcaps.ve));
+	else
+		append_buffer(s, s->termcaps.vi, ft_strlen(s->termcaps.vi));
+}
+
+void	tc_putstr(struct s_select *s, const char *str)
+{
+	append_buffer(s, str, ft_strlen(str));
+}
+
+void	tc_putendl(struct s_select *s)
+{
+	append_buffer(s, "\r\n", 2);
+}
 
 void	tc_move_cursor(struct s_select *s)
 {
@@ -21,10 +49,10 @@ void	tc_move_cursor(struct s_select *s)
 	append_buffer(s, pos, ft_strlen(pos));
 }
 
-void	tc_clear_screen(void)
+void	tc_clear_screen(struct s_select *s)
 {
 	char	*cl;
 
-	cl = tgetstr("cl", NULL);
-	tputs(cl, 1, ft_putchar);
+	cl = s->termcaps.cl;
+	append_buffer(s, cl, ft_strlen(cl));
 }

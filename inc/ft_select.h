@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 16:31:43 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 17:04:55 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	setup_signal_handlers(void);
 void	enable_raw_mode(void);
 void	disable_raw_mode(void);
 int		get_window_size(struct s_select *s);
+void	log_info(struct s_select *s, const char *str);
+void	fatal_error(const char *msg);
 
 // keys.c
 void	process_keypress(struct s_select *s);
@@ -113,9 +115,11 @@ void	clear_buffer(struct s_select *s);
 
 // termcap.c
 void	tc_move_cursor(struct s_select *s);
-void	tc_clear_screen(void);
-
-void	log_info(struct s_select *s, const char *str);
-void	fatal_error(const char *msg);
+void	tc_clear_screen(struct s_select *s);
+void	tc_putstr(struct s_select *s, const char *str);
+void	tc_putendl(struct s_select *s);
+void	tc_set_cursor_visibility(struct s_select *s, int visible);
+void	tc_invert_colours(struct s_select *s);
+void	tc_reset_colours(struct s_select *s);
 
 #endif

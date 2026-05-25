@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 16:45:58 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 16:54:42 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ struct termios	g_orig_termios;
 */
 static int	ft_select(struct s_select *s)
 {
+	enable_raw_mode();
 	while (1)
 	{
 		if (get_window_size(s) == -1)
@@ -29,6 +30,7 @@ static int	ft_select(struct s_select *s)
 		render_terminal(s);
 		process_keypress(s);
 	}
+	disable_raw_mode();
 	return (0);
 }
 
@@ -78,6 +80,15 @@ static void	initialise_select(struct s_select *s, int ac, char **av)
 		fatal_error("Unable to open log file");
 }
 
+/* 
+	Initialise the terminal capabilities:
+	- cm: cursor movement
+	- cl: clear screen
+	- mr: enter reverse mode
+	- me: exit reverse mode
+	- vi: hide cursor
+	- ve: show cursor
+*/
 static void	initialise_termcaps(struct s_select *s)
 {
 	char	*buf[2048];
@@ -98,10 +109,7 @@ int	main(int ac, char **av)
 	initialise_select(&s, ac, av);
 	initialise_termcaps(&s);
 	setup_signal_handlers();
-	enable_raw_mode();
 	ft_select(&s);
-	disable_raw_mode();
-	tc_clear_screen();
 	if (s.fd_logfile != -1)
 		close(s.fd_logfile);
 	return (0);
