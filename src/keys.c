@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:43:28 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 15:44:42 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 15:56:24 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,23 @@
 int	read_key(void)
 {
 	int		nread;
-	char	seq[3];
+	char	seq[4];
 
-	nread = read(STDIN_FILENO, seq, 3);
+	nread = read(STDIN_FILENO, seq, 4);
 	if (nread == -1 && errno != EAGAIN && errno != EINTR)
 		fatal_error("could not read key input");
+	if (seq[0] == 127 && nread == 1)
+		return (KEY_BACKSPACE);
+	if (seq[0] == ' ')
+		return (KEY_SPACE);
+	else if (seq[0] == '\r' || seq[0] == '\n')
+		return (KEY_ENTER);
 	if (seq[0] == '\x1b')
 	{
 		if (seq[1] == '[')
 		{
+			if (seq[2] == '3' && seq[3] == '~')
+				return (KEY_DELETE);
 			if (seq[2] == '\0')
 				return (KEY_ESCAPE);
 			if (seq[2] == 'A')
