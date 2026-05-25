@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 12:43:47 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 13:55:25 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,7 @@ enum e_key
 	KEY_ESC,
 	KEY_BACKSPACE,
 	KEY_DELETE,
-	KEY_HOME,
-	KEY_END,
-	KEY_PAGE_UP,
-	KEY_PAGE_DOWN,
+	KEY_ESCAPE,
 	KEY_UNKNOWN
 };
 
@@ -100,14 +97,13 @@ void	disable_raw_mode(void);
 int		get_window_size(struct s_select *s);
 
 // keys.c
-int		ctrl_key(const int k);
 int		editor_read_key(struct s_select *s);
 
 // moves.c
-void	handle_up_key(struct s_select *s);
-void	handle_down_key(struct s_select *s);
-void    handle_right_key(struct s_select *s);
-void    handle_left_key(struct s_select *s);
+void	editor_move_cursor(struct s_select *s, int key);
+
+// controls.c
+void	editor_control_key(struct s_select *s, int key);
 
 // render.c
 void	render_terminal(struct s_select *s);

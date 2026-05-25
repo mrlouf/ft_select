@@ -6,13 +6,13 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:43:28 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 12:44:29 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 13:55:56 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 
-int	get_escape_key(char seq[3])
+/* int	get_escape_key(char seq[3])
 {
 	if (seq[0] == '[') {
 		if (seq[1] >= '0' && seq[1] <= '9') {
@@ -45,7 +45,7 @@ int	get_escape_key(char seq[3])
 		}
 	}
 	return '\x1b';
-}
+} */
 
 /* 
 	Read a key input from the user and return it.
@@ -64,7 +64,7 @@ int editor_read_key(struct s_select *s)
 	{
 		char seq[3];
 		if (read(STDIN_FILENO, &seq[0], 1) != 1)
-			return '\x1b';
+			return (KEY_ESCAPE);
 		if (read(STDIN_FILENO, &seq[1], 1) != 1)
 			return '\x1b';
 		if (seq[0] == '[')
@@ -97,22 +97,16 @@ int editor_read_key(struct s_select *s)
 	}
 }
 
-static void	editor_move_cursor(struct s_select *s, int key)
-{
-	if (key == KEY_UP)
-		handle_up_key(s);
-	else if (key == KEY_DOWN)
-		handle_down_key(s);
-	else if (key == KEY_LEFT)
-		handle_left_key(s);
-	else if (key == KEY_RIGHT)
-		handle_right_key(s);
-}
 
 static int	is_moving_key(int key)
 {
-	return (key == KEY_UP || key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT
-		|| key == KEY_HOME || key == KEY_END || key == KEY_PAGE_UP || key == KEY_PAGE_DOWN);
+	return (key == KEY_UP || key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT);
+}
+
+static int	is_ctrl_key(int key)
+{
+	return (key == KEY_SPACE || key == KEY_ENTER || key == KEY_ESCAPE
+		|| key == KEY_BACKSPACE || key == KEY_DELETE);
 }
 
 void	editor_process_keypress(struct s_select *s)
@@ -125,18 +119,12 @@ void	editor_process_keypress(struct s_select *s)
 	snprintf(buf, 32, "Key pressed: %d", c);
 	log_info(s, buf);
 
-	if (c == 27)
+	if (is_ctrl_key(c))
 	{
-		disable_raw_mode();
-		exit(EXIT_SUCCESS);
+		editor_control_key(s, c);
 	}
 	else if (is_moving_key(c))
 	{
 		editor_move_cursor(s, c);
 	}
-}
-
-int	ctrl_key(const int k)
-{
-	return (k & 0x1f);
 }

@@ -25,6 +25,7 @@ SRC				= 	main.c 	\
 					signal.c 	\
 					keys.c 		\
 					moves.c 	\
+					controls.c 	\
 					render.c 	\
 					conf.c 		\
 					buffer.c 	\
