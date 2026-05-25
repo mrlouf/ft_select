@@ -6,25 +6,53 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:38:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/17 16:44:04 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 12:42:05 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 #include "../libft/libft.h"
 
-static void	signal_handler_sigint(int signum)
+static void	sig_kill(int signum)
 {
 	(void)signum;
 
-	tputs(tgetstr("cl", NULL), 1, ft_putchar);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar);
-	tputs(tgetstr("me", NULL), 1, ft_putchar);
 	tputs(tgetstr("te", NULL), 1, ft_putchar);
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_orig_termios);
+	// tc_clear_screen();
 	exit(EXIT_SUCCESS);
 }
 
-void	setup_signal_handlers(struct s_select *s)
+static void	sig_resize(int signum)
 {
-	signal(SIGINT, signal_handler_sigint);
+	(void)signum;
+}
+
+static void	sig_suspend(int signum)
+{
+	(void)signum;
+}
+
+static void	sig_resume(int signum)
+{
+	(void)signum;
+}
+
+void	setup_signal_handlers()
+{
+	signal(SIGINT, sig_kill);
+	signal(SIGKILL, sig_kill);
+	signal(SIGQUIT, sig_kill);
+	signal(SIGINT, sig_kill);
+	signal(SIGABRT, sig_kill);
+	signal(SIGFPE, sig_kill);
+	signal(SIGILL, sig_kill);
+	signal(SIGINT, sig_kill);
+	signal(SIGSEGV, sig_kill);
+	signal(SIGTERM, sig_kill);
+	signal(SIGWINCH, sig_resize);
+	signal(SIGTSTP, sig_suspend);
+	signal(SIGSTOP, sig_suspend);
+	signal(SIGCONT, sig_resume);
 }

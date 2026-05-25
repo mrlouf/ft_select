@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/17 16:34:00 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 13:16:00 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	get_window_size(struct s_select *s)
 	}
 	else
 	{
-		s->win_size.ws_col = ws.ws_col;
-		s->win_size.ws_row = ws.ws_row;
+		g_win_size.ws_col = ws.ws_col;
+		g_win_size.ws_row = ws.ws_row;
 		return (0);
 	}
 }
@@ -36,14 +36,13 @@ int	get_window_size(struct s_select *s)
 	to ensure the terminal is left in a usable state,
 	regardless of how the program exits (normal exit, error, signal, etc).
 */
-void	disable_raw_mode(struct s_select *s)
+void	disable_raw_mode(void)
 {
-	tputs(tgetstr("ve", NULL), 1, putchar);
-	tputs(tgetstr("me", NULL), 1, putchar);
-	tputs(tgetstr("te", NULL), 1, putchar);
+	ft_putstr_fd("\x1b[?25h", STDOUT_FILENO);
+	tputs(tgetstr("me", NULL), 1, ft_putchar);
+	tputs(tgetstr("te", NULL), 1, ft_putchar);
 	tputs(tgetstr("cl", NULL), 1, ft_putchar);
-	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &s->orig_termios) == -1)
-		fatal_error("tcsetattr failed", s);
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_orig_termios);
 }
 
 /* 
@@ -56,9 +55,9 @@ void	enable_raw_mode(struct s_select *s)
 	struct termios	raw;
 	char			*term;
 
-	raw = s->orig_termios;
-	tputs(tgetstr("ti", NULL), 1, putchar);
-	tputs(tgetstr("vi", NULL), 1, putchar);
+	raw = g_orig_termios;
+	tputs(tgetstr("ti", NULL), 1, ft_putchar);
+	tputs(tgetstr("vi", NULL), 1, ft_putchar);
 	if (tcgetattr(STDIN_FILENO, &raw) == -1)
 		fatal_error("tcgetattr failed", s);
 	tcgetattr(STDIN_FILENO, &raw);
@@ -68,5 +67,5 @@ void	enable_raw_mode(struct s_select *s)
 	raw.c_lflag &= ~(ECHO | ICANON | IEXTEN);
 	raw.c_cc[VMIN] = 0;
 	raw.c_cc[VTIME] = 1;
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+	tcsetattr(STDIN_FILENO, TCSANOW, &raw);
 }

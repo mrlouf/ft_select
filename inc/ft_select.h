@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/17 16:41:30 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 12:43:47 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ typedef struct s_termcaps
 
 typedef struct s_select
 {
-	struct termios		orig_termios;
-	struct winsize		win_size;
 	struct s_string		buf;
-	struct s_cursor		cursor;
 	struct s_termcaps	termcaps;
 
 	char			**av;
@@ -65,6 +62,12 @@ typedef struct s_select
 	int				fd_logfile;
 
 }	t_select;
+
+/* GLOBAL VARIABLES */
+
+extern struct termios	g_orig_termios;
+extern struct winsize	g_win_size;
+extern struct s_cursor	g_cursor;
 
 /* ENUMERATIONS */
 
@@ -89,11 +92,11 @@ enum e_key
 /* PROTOTYPES */
 
 // signal.c
-void	setup_signal_handlers(struct s_select *s);
+void	setup_signal_handlers();
 
 // conf.c
 void	enable_raw_mode(struct s_select *s);
-void	disable_raw_mode(struct s_select *s);
+void	disable_raw_mode(void);
 int		get_window_size(struct s_select *s);
 
 // keys.c

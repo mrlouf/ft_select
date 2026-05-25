@@ -6,12 +6,16 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/17 16:41:15 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 12:44:12 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 #include "../libft/libft.h"
+
+struct termios	g_orig_termios;
+struct winsize	g_win_size;
+struct s_cursor	g_cursor;
 
 void	fatal_error(const char *str, struct s_select *s)
 {
@@ -19,7 +23,7 @@ void	fatal_error(const char *str, struct s_select *s)
 	write(STDOUT_FILENO, "\x1b[H", 3);
 	ft_putstr_fd("Error: ", STDERR_FILENO);
 	ft_putendl_fd((char *)str, STDERR_FILENO);
-	disable_raw_mode(s);
+	disable_raw_mode();
 	exit(EXIT_FAILURE);
 }
 
@@ -46,6 +50,10 @@ static int	ft_select(struct s_select *s)
 		render_terminal(s);
 		editor_process_keypress(s);
 	}
+
+	disable_raw_mode();
+	tc_clear_screen();
+
 	return (0);
 }
 
@@ -66,7 +74,7 @@ static int check_environment(struct s_select *s)
 		ft_putstr_fd("Error: Could not access the termcap database\n", STDERR_FILENO);
 		return (-1);
 	}
-	if (tcgetattr(STDIN_FILENO, &s->orig_termios) == -1) {
+	if (tcgetattr(STDIN_FILENO, &g_orig_termios) == -1) {
 		ft_putstr_fd("Error: tcgetattr failed\n", STDERR_FILENO);
 		return (-1);
 	}
@@ -78,9 +86,7 @@ static void	initialize_select(struct s_select *s)
 	if (check_environment(s) == -1)
 		exit(EXIT_FAILURE);
 
-	s->win_size = (struct winsize){0};
 	s->buf = (struct s_string){NULL, 0};
-	s->cursor = (struct s_cursor){0, 0};
 	s->termcaps = (struct s_termcaps){0};
 	s->av = NULL;
 	s->ac = 0;
@@ -107,7 +113,7 @@ int	main(int ac, char **av)
 	tputs(tgetstr("ti", NULL), 1, putchar);
 	tputs(tgetstr("vi", NULL), 1, putchar);
 	ft_select(&s);
-	disable_raw_mode(&s);
+	disable_raw_mode();
 	tc_clear_screen();
 
 	// * DEBUG: Close the log file if opened

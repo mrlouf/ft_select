@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:43:28 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/18 11:47:19 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 12:44:29 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int editor_read_key(struct s_select *s)
 	char c;
 	while ((nread = read(STDIN_FILENO, &c, 1)) != 1)
 	{
-		if (nread == -1 && errno != EAGAIN)
+		if (nread == -1 && errno != EAGAIN && errno != EINTR)
 			fatal_error("read", s);
 	}
 	if (c == '\x1b')
@@ -73,26 +73,6 @@ int editor_read_key(struct s_select *s)
 			{
 				if (read(STDIN_FILENO, &seq[2], 1) != 1)
 					return '\x1b';
-				if (seq[2] == '~')
-				{
-					switch (seq[1])
-					{
-					case '1':
-						return KEY_HOME;
-					case '3':
-						return KEY_DELETE;
-					case '4':
-						return KEY_END;
-					case '5':
-						return KEY_PAGE_UP;
-					case '6':
-						return KEY_PAGE_DOWN;
-					case '7':
-						return KEY_HOME;
-					case '8':
-						return KEY_END;
-					}
-				}
 			}
 			else
 			{
@@ -106,21 +86,7 @@ int editor_read_key(struct s_select *s)
 					return KEY_RIGHT;
 				case 'D':
 					return KEY_LEFT;
-				case 'H':
-					return KEY_HOME;
-				case 'F':
-					return KEY_END;
 				}
-			}
-		}
-		else if (seq[0] == 'O')
-		{
-			switch (seq[1])
-			{
-			case 'H':
-				return KEY_HOME;
-			case 'F':
-				return KEY_END;
 			}
 		}
 		return '\x1b';
@@ -141,14 +107,6 @@ static void	editor_move_cursor(struct s_select *s, int key)
 		handle_left_key(s);
 	else if (key == KEY_RIGHT)
 		handle_right_key(s);
-/* 	else if (key == KEY_HOME)
-		s->cursor.x = 0;
-	else if (key == KEY_END)
-		s->cursor.x = s->win_size.ws_col - 1;
-	else if (key == KEY_PAGE_UP)
-		s->cursor.y = 0;
-	else if (key == KEY_PAGE_DOWN)
-		s->cursor.y = s->win_size.ws_row - 1; */
 }
 
 static int	is_moving_key(int key)
@@ -169,7 +127,7 @@ void	editor_process_keypress(struct s_select *s)
 
 	if (c == 27)
 	{
-		disable_raw_mode(s);
+		disable_raw_mode();
 		exit(EXIT_SUCCESS);
 	}
 	else if (is_moving_key(c))
