@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 15:28:44 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 15:45:26 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_select(struct s_select *s)
 		if (get_window_size() == -1)
 			fatal_error("Unable to get window size");
 		render_terminal(s);
-		editor_process_keypress(s);
+		process_keypress(s);
 	}
 	return (0);
 }

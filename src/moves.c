@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 14:51:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 15:23:11 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 15:45:05 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	handle_left_key(struct s_select *s)
 		g_cursor.x--;
 }
 
-void	editor_move_cursor(struct s_select *s, int key)
+void	move_cursor(struct s_select *s, int key)
 {
 	if (key == KEY_UP)
 		handle_up_key(s);

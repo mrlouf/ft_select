@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:43:28 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 15:27:35 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 15:44:42 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	Read a key input from the user and return it.
 	This function will block until a key is pressed.
 */
-int	editor_read_key(void)
+int	read_key(void)
 {
 	int		nread;
 	char	seq[3];
@@ -59,17 +59,17 @@ static int	is_ctrl_key(int key)
 		|| key == KEY_BACKSPACE || key == KEY_DELETE);
 }
 
-void	editor_process_keypress(struct s_select *s)
+void	process_keypress(struct s_select *s)
 {
 	int	key;
 
-	key = editor_read_key();
+	key = read_key();
 	if (is_ctrl_key(key))
 	{
-		editor_control_key(s, key);
+		control_key(s, key);
 	}
 	else if (is_moving_key(key))
 	{
-		editor_move_cursor(s, key);
+		move_cursor(s, key);
 	}
 }

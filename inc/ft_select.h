@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 15:20:38 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 15:45:17 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,19 @@ void	disable_raw_mode(void);
 int		get_window_size(void);
 
 // keys.c
-int		editor_read_key(void);
+int		read_key(void);
 
 // moves.c
-void	editor_move_cursor(struct s_select *s, int key);
+void	move_cursor(struct s_select *s, int key);
 
 // controls.c
-void	editor_control_key(struct s_select *s, int key);
+void	control_key(struct s_select *s, int key);
 
 // render.c
 void	render_terminal(struct s_select *s);
-void	editor_process_keypress(struct s_select *s);
-void	editor_refresh_screen(struct s_select *s);
-void	editor_draw_arguments(struct s_select *s);
+void	process_keypress(struct s_select *s);
+void	refresh_screen(struct s_select *s);
+void	draw_arguments(struct s_select *s);
 
 // buffer.c
 void	append_buffer(struct s_select *s, const char *str, int len);
