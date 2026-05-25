@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 12:36:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 17:03:51 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 18:01:23 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,14 @@ void	tc_clear_screen(struct s_select *s)
 
 	cl = s->termcaps.cl;
 	append_buffer(s, cl, ft_strlen(cl));
+}
+
+void	tc_start_underline(struct s_select *s)
+{
+	append_buffer(s, "\E[4m", 4);
+}
+
+void	tc_stop_underline(struct s_select *s)
+{
+	append_buffer(s, "\E[24m", 5);
 }

@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 16:54:42 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 17:55:48 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ static void	initialise_select(struct s_select *s, int ac, char **av)
 	- me: exit reverse mode
 	- vi: hide cursor
 	- ve: show cursor
+	- us: underline start
+	- ue: underline end
 */
 static void	initialise_termcaps(struct s_select *s)
 {
@@ -100,6 +102,8 @@ static void	initialise_termcaps(struct s_select *s)
 	s->termcaps.me = tgetstr("me", buf);
 	s->termcaps.vi = tgetstr("vi", buf);
 	s->termcaps.ve = tgetstr("ve", buf);
+	s->termcaps.smul = tgetstr("smul", buf);
+	s->termcaps.rmul = tgetstr("rmul", buf);
 }
 
 int	main(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 17:04:55 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 17:39:21 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_termcaps
 	char	*me;
 	char	*vi;
 	char	*ve;
+	char	*smul;
+	char	*rmul;
 }	t_termcaps;
 
 typedef struct s_select
@@ -121,5 +123,7 @@ void	tc_putendl(struct s_select *s);
 void	tc_set_cursor_visibility(struct s_select *s, int visible);
 void	tc_invert_colours(struct s_select *s);
 void	tc_reset_colours(struct s_select *s);
+void	tc_start_underline(struct s_select *s);
+void	tc_stop_underline(struct s_select *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:54:14 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 17:03:40 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 18:00:08 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	draw_arguments(struct s_select *s)
 	i = 0;
 	while (i < s->win_size.ws_row - 1 && i < s->ac)
 	{
+		tc_putstr(s, "> ");
 		if (i == s->cursor.y)
 			tc_invert_colours(s);
 		tc_putstr(s, s->av[i]);
@@ -34,6 +35,9 @@ static void	refresh_screen(struct s_select *s)
 	tc_clear_screen(s);
 	draw_arguments(s);
 	tc_move_cursor(s);
+	tc_start_underline(s);
+	tc_putstr(s, " ");
+	tc_stop_underline(s);
 	tc_set_cursor_visibility(s, 1);
 }
 
