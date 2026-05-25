@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 14:06:49 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 15:24:07 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,37 @@ int	get_window_size(void)
 	return (-1);
 }
 
+void	log_info(struct s_select *s, const char *str)
+{
+	if (s->fd_logfile != -1)
+	{
+		ft_putstr_fd("LOG: ", s->fd_logfile);
+		ft_putendl_fd((char *)str, s->fd_logfile);
+	}
+}
+
 /* 
 	Disable raw mode and restore the original terminal settings.
 	This MUST be called before exiting the program
 	to ensure the terminal is left in a usable state,
 	regardless of how the program exits (normal exit, error, signal, etc).
 */
-void    disable_raw_mode(void)
+void	disable_raw_mode(void)
 {
-    char    *buf[2048];
-    char    *cap;
+	char	*buf[2048];
+	char	*cap;
 
 	ft_bzero(buf, sizeof(buf));
-    cap = tgetstr("ve", buf);
-    if (cap)
-        tputs(cap, 1, ft_putchar);
-    cap = tgetstr("me", buf);
-    if (cap)
-        tputs(cap, 1, ft_putchar);
-    cap = tgetstr("te", buf);
-    if (cap)
-        tputs(cap, 1, ft_putchar);
-    tcsetattr(STDIN_FILENO, TCSANOW, &g_orig_termios);
+	cap = tgetstr("ve", buf);
+	if (cap)
+		tputs(cap, 1, ft_putchar);
+	cap = tgetstr("me", buf);
+	if (cap)
+		tputs(cap, 1, ft_putchar);
+	cap = tgetstr("te", buf);
+	if (cap)
+		tputs(cap, 1, ft_putchar);
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_orig_termios);
 }
 
 /* 

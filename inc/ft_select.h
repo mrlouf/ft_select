@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 14:05:59 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 15:20:38 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # include <fcntl.h>
 # include <signal.h>
 
-# include <stdio.h>
-
 /* STRUCTURES */
 
 typedef struct s_string
@@ -42,12 +40,12 @@ typedef struct s_cursor
 
 typedef struct s_termcaps
 {
-    char    *cm;
-    char    *cl;
-    char    *mr;
-    char    *me;
-    char    *vi;
-    char    *ve;
+	char	*cm;
+	char	*cl;
+	char	*mr;
+	char	*me;
+	char	*vi;
+	char	*ve;
 }	t_termcaps;
 
 typedef struct s_select
@@ -55,11 +53,11 @@ typedef struct s_select
 	struct s_string		buf;
 	struct s_termcaps	termcaps;
 
-	char			**av;
-	int				ac;
+	char				**av;
+	int					ac;
 
-	int				fd_tty;
-	int				fd_logfile;
+	int					fd_tty;
+	int					fd_logfile;
 
 }	t_select;
 
@@ -89,7 +87,7 @@ enum e_key
 /* PROTOTYPES */
 
 // signal.c
-void	setup_signal_handlers();
+void	setup_signal_handlers(void);
 
 // conf.c
 void	enable_raw_mode(void);

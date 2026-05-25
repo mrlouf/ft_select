@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 14:51:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 13:47:16 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 15:23:11 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ static void	handle_up_key(struct s_select *s)
 		g_cursor.y--;
 	else
 		g_cursor.y = s->ac - 1;
-
 	if (g_cursor.x > (int)ft_strlen(s->av[g_cursor.y]) - 1)
 		g_cursor.x = ft_strlen(s->av[g_cursor.y]) - 1;
 }
 
-static void handle_down_key(struct s_select *s)
+static void	handle_down_key(struct s_select *s)
 {
 	if (s->ac == 0)
 		return ;
@@ -34,7 +33,6 @@ static void handle_down_key(struct s_select *s)
 		g_cursor.y++;
 	else
 		g_cursor.y = 0;
-
 	if (g_cursor.x > (int)ft_strlen(s->av[g_cursor.y]) - 1)
 		g_cursor.x = ft_strlen(s->av[g_cursor.y]) - 1;
 }

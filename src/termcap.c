@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 12:36:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 12:16:42 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 14:11:39 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	tc_move_cursor(struct s_select *s)
 
 void	tc_clear_screen(void)
 {
-	char *cl;
+	char	*cl;
 
 	cl = tgetstr("cl", NULL);
 	tputs(cl, 1, ft_putchar);

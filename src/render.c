@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:54:14 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 12:20:56 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 15:27:49 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,32 @@ void	editor_draw_arguments(struct s_select *s)
 	}
 }
 
+/* static void	editor_draw_cursor(char **buf)
+{
+	buf[0][0] = '\x1b';
+	buf[0][1] = '[';
+	buf[0][2] = g_cursor.y + 1 + '0';
+	buf[0][3] = ';';
+	buf[0][4] = g_cursor.x + 1 + '0';
+	buf[0][5] = 'H';
+	buf[0][6] = '\0';
+} */
+
 void	editor_refresh_screen(struct s_select *s)
 {
+	char	buf[7];
+
 	tc_clear_screen();
 	append_buffer(s, "\x1b[H", 3);
-
 	editor_draw_arguments(s);
-
-	char	buf[32];
-	snprintf(buf, 32, "\x1b[%d;%dH", g_cursor.y+1, g_cursor.x+1);
-	append_buffer(s, buf, ft_strlen(buf));
-
+	buf[0] = '\x1b';
+	buf[1] = '[';
+	buf[2] = g_cursor.y + 1 + '0';
+	buf[3] = ';';
+	buf[4] = g_cursor.x + 1 + '0';
+	buf[5] = 'H';
+	buf[6] = '\0';
+	append_buffer(s, buf, 7);
 	append_buffer(s, "\x1b[?25h", 6);
 }
 

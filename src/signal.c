@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:38:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 13:42:01 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 15:26:23 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 static void	sig_kill(int signum)
 {
 	(void)signum;
-
 	disable_raw_mode();
 	exit(EXIT_SUCCESS);
 }
@@ -36,7 +35,7 @@ static void	sig_resume(int signum)
 	(void)signum;
 }
 
-void	setup_signal_handlers()
+void	setup_signal_handlers(void)
 {
 	signal(SIGINT, sig_kill);
 	signal(SIGKILL, sig_kill);
