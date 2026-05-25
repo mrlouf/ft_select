@@ -6,14 +6,14 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:54:14 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 16:26:04 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 16:44:30 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 #include "../libft/libft.h"
 
-void	draw_arguments(struct s_select *s)
+static void	draw_arguments(struct s_select *s)
 {
 	int	i;
 
@@ -37,21 +37,12 @@ void	draw_arguments(struct s_select *s)
 	buf[0][6] = '\0';
 } */
 
-void	refresh_screen(struct s_select *s)
+static void	refresh_screen(struct s_select *s)
 {
-	char	buf[7];
-
 	tc_clear_screen();
 	append_buffer(s, "\x1b[H", 3);
 	draw_arguments(s);
-	buf[0] = '\x1b';
-	buf[1] = '[';
-	buf[2] = s->cursor.y + 1 + '0';
-	buf[3] = ';';
-	buf[4] = s->cursor.x + 1 + '0';
-	buf[5] = 'H';
-	buf[6] = '\0';
-	append_buffer(s, buf, 7);
+	tc_move_cursor(s);
 	append_buffer(s, "\x1b[?25h", 6);
 }
 

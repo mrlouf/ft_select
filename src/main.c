@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 16:25:05 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 16:45:58 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,6 @@
 #include "../libft/libft.h"
 
 struct termios	g_orig_termios;
-struct winsize	g_win_size;
-struct s_cursor	g_cursor;
-
-void	fatal_error(const char *str)
-{
-	write(STDOUT_FILENO, "\x1b[2J", 4);
-	write(STDOUT_FILENO, "\x1b[H", 3);
-	ft_putstr_fd("Error: ", STDERR_FILENO);
-	ft_putendl_fd((char *)str, STDERR_FILENO);
-	disable_raw_mode();
-	exit(EXIT_FAILURE);
-}
 
 /* 
 	The main loop of the ft_select program.
@@ -72,14 +60,14 @@ static int	check_environment(void)
 	return (0);
 }
 
-static void	initialize_select(struct s_select *s)
+static void	initialise_select(struct s_select *s, int ac, char **av)
 {
 	if (check_environment() == -1)
 		exit(EXIT_FAILURE);
 	s->buf = (struct s_string){NULL, 0};
 	s->termcaps = (struct s_termcaps){0};
-	s->av = NULL;
-	s->ac = 0;
+	s->av = av + 1;
+	s->ac = ac - 1;
 	s->fd_tty = -1;
 	s->fd_tty = open("/dev/tty", O_RDWR);
 	if (s->fd_tty == -1)
@@ -90,13 +78,25 @@ static void	initialize_select(struct s_select *s)
 		fatal_error("Unable to open log file");
 }
 
+static void	initialise_termcaps(struct s_select *s)
+{
+	char	*buf[2048];
+
+	ft_bzero(buf, sizeof(buf));
+	s->termcaps.cm = tgetstr("cm", buf);
+	s->termcaps.cl = tgetstr("cl", buf);
+	s->termcaps.mr = tgetstr("mr", buf);
+	s->termcaps.me = tgetstr("me", buf);
+	s->termcaps.vi = tgetstr("vi", buf);
+	s->termcaps.ve = tgetstr("ve", buf);
+}
+
 int	main(int ac, char **av)
 {
 	struct s_select	s;
 
-	initialize_select(&s);
-	s.av = av + 1;
-	s.ac = ac - 1;
+	initialise_select(&s, ac, av);
+	initialise_termcaps(&s);
 	setup_signal_handlers();
 	enable_raw_mode();
 	ft_select(&s);

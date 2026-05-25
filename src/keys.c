@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:43:28 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 16:10:27 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 16:31:33 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	get_arrow_key(int key)
 	Read a key input from the user and return it.
 	This function will block until a key is pressed.
 */
-int	read_key(void)
+static int	read_key(void)
 {
 	int		nread;
 	char	seq[4];

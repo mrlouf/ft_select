@@ -6,12 +6,22 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 16:24:39 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 16:45:27 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 #include "../libft/libft.h"
+
+void	fatal_error(const char *str)
+{
+	write(STDOUT_FILENO, "\x1b[2J", 4);
+	write(STDOUT_FILENO, "\x1b[H", 3);
+	ft_putstr_fd("Error: ", STDERR_FILENO);
+	ft_putendl_fd((char *)str, STDERR_FILENO);
+	disable_raw_mode();
+	exit(EXIT_FAILURE);
+}
 
 int	get_window_size(struct s_select *s)
 {
