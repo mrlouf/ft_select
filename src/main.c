@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 12:44:12 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 13:26:09 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,6 @@ int	main(int ac, char **av)
 	setup_signal_handlers(&s);
 
 	enable_raw_mode(&s);
-	tputs(tgetstr("ti", NULL), 1, putchar);
-	tputs(tgetstr("vi", NULL), 1, putchar);
 	ft_select(&s);
 	disable_raw_mode();
 	tc_clear_screen();

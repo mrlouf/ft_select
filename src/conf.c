@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 13:16:00 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/25 13:38:17 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,22 @@ int	get_window_size(struct s_select *s)
 	to ensure the terminal is left in a usable state,
 	regardless of how the program exits (normal exit, error, signal, etc).
 */
-void	disable_raw_mode(void)
+void    disable_raw_mode(void)
 {
-	ft_putstr_fd("\x1b[?25h", STDOUT_FILENO);
-	tputs(tgetstr("me", NULL), 1, ft_putchar);
-	tputs(tgetstr("te", NULL), 1, ft_putchar);
-	tputs(tgetstr("cl", NULL), 1, ft_putchar);
-	tcsetattr(STDIN_FILENO, TCSANOW, &g_orig_termios);
+    char    *buf[2048];
+    char    *cap;
+
+	ft_bzero(buf, sizeof(buf));
+    cap = tgetstr("ve", buf);
+    if (cap)
+        tputs(cap, 1, ft_putchar);
+    cap = tgetstr("me", buf);
+    if (cap)
+        tputs(cap, 1, ft_putchar);
+    cap = tgetstr("te", buf);
+    if (cap)
+        tputs(cap, 1, ft_putchar);
+    tcsetattr(STDIN_FILENO, TCSANOW, &g_orig_termios);
 }
 
 /* 
@@ -54,13 +63,18 @@ void	enable_raw_mode(struct s_select *s)
 {
 	struct termios	raw;
 	char			*term;
+	char			*buf[2048];
+	char			*cap;
 
 	raw = g_orig_termios;
-	tputs(tgetstr("ti", NULL), 1, ft_putchar);
-	tputs(tgetstr("vi", NULL), 1, ft_putchar);
+	cap = tgetstr("ti", buf);
+	if (cap)
+		tputs(cap, 1, ft_putchar);
+	cap = tgetstr("vi", buf);
+	if (cap)
+		tputs(cap, 1, ft_putchar);
 	if (tcgetattr(STDIN_FILENO, &raw) == -1)
 		fatal_error("tcgetattr failed", s);
-	tcgetattr(STDIN_FILENO, &raw);
 	raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
 	raw.c_oflag &= ~(OPOST);
 	raw.c_cflag |= (CS8);
