@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controls.c                                         :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/25 13:48:22 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 10:52:26 by nicolas          ###   ########.fr       */
+/*   Created: 2024/09/16 15:50:08 by nponchon          #+#    #+#             */
+/*   Updated: 2026/05/26 10:45:39 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ft_select.h"
+#include "../inc/libft.h"
 
-void	control_key(struct s_select *s, int key)
+char	*ft_strdup(char *str)
 {
-	if (key == KEY_ESCAPE)
+	char	*dup;
+	int		i;
+
+	i = 0;
+	dup = (char *)malloc(sizeof(char) * (ft_strlen(str)) + 1);
+	if (!dup)
+		return (NULL);
+	while (str[i])
 	{
-		disable_raw_mode();
-		log_info(s, "Exiting program");
-		exit(EXIT_SUCCESS);
+		dup[i] = str[i];
+		i++;
 	}
-	else if (key == KEY_SPACE)
-		log_info(s, "Space key pressed");
-	else if (key == KEY_ENTER)
-		log_info(s, "Enter key pressed");
-	else if (key == KEY_BACKSPACE || key == KEY_DELETE)
-		log_info(s, "Delete key pressed");
+	dup[i] = '\0';
+	return (dup);
 }
+
+/*
+int	main(int ac, char **av)
+{
+	if (ac == 2)
+		printf("dup = %s\n", ft_strdup(av[1]));
+	return (0);
+}*/

@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controls.c                                         :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/25 13:48:22 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 10:52:26 by nicolas          ###   ########.fr       */
+/*   Created: 2026/05/14 21:22:44 by nicolas           #+#    #+#             */
+/*   Updated: 2026/05/26 10:45:39 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ft_select.h"
+#include "../inc/libft.h"
 
-void	control_key(struct s_select *s, int key)
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 {
-	if (key == KEY_ESCAPE)
+	void	*new_ptr;
+
+	if (new_size == 0)
 	{
-		disable_raw_mode();
-		log_info(s, "Exiting program");
-		exit(EXIT_SUCCESS);
+		free(ptr);
+		return (NULL);
 	}
-	else if (key == KEY_SPACE)
-		log_info(s, "Space key pressed");
-	else if (key == KEY_ENTER)
-		log_info(s, "Enter key pressed");
-	else if (key == KEY_BACKSPACE || key == KEY_DELETE)
-		log_info(s, "Delete key pressed");
+	new_ptr = malloc(new_size);
+	if (!new_ptr)
+		return (NULL);
+	if (ptr)
+	{
+		ft_memcpy(new_ptr, ptr, old_size);
+		free(ptr);
+	}
+	return (new_ptr);
 }

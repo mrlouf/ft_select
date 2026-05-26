@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 17:39:21 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 10:51:35 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <sys/ioctl.h>
 # include <fcntl.h>
 # include <signal.h>
+
+# include "../libft/inc/libft.h"
 
 /* STRUCTURES */
 

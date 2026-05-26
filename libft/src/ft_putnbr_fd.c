@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controls.c                                         :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/25 13:48:22 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 10:52:26 by nicolas          ###   ########.fr       */
+/*   Created: 2024/09/16 12:59:14 by nponchon          #+#    #+#             */
+/*   Updated: 2026/05/26 10:45:39 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ft_select.h"
+#include "../inc/libft.h"
 
-void	control_key(struct s_select *s, int key)
+void	ft_putnbr_fd(int n, int fd)
 {
-	if (key == KEY_ESCAPE)
+	char	c;
+
+	if (n == -2147483648)
 	{
-		disable_raw_mode();
-		log_info(s, "Exiting program");
-		exit(EXIT_SUCCESS);
+		ft_putstr_fd("-2147483648", fd);
+		return ;
 	}
-	else if (key == KEY_SPACE)
-		log_info(s, "Space key pressed");
-	else if (key == KEY_ENTER)
-		log_info(s, "Enter key pressed");
-	else if (key == KEY_BACKSPACE || key == KEY_DELETE)
-		log_info(s, "Delete key pressed");
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		n = -n;
+	}
+	if (n > 9)
+		ft_putnbr_fd(n / 10, fd);
+	c = '0' + n % 10;
+	ft_putchar_fd(c, fd);
 }

@@ -6,12 +6,11 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:54:14 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 18:00:08 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 10:52:37 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
-#include "../libft/libft.h"
 
 static void	draw_arguments(struct s_select *s)
 {

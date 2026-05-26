@@ -2,13 +2,33 @@
 
 NAME		= 	libft.a
 
-# -=-=-=-=-    PATH -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= #
+# -=-=-=-=-    COLOURS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #
 
-SRC			= 	.
+
+DEL_LINE =		\033[2K
+ITALIC =		\033[3m
+BOLD =			\033[1m
+DEF_COLOR =		\033[0;39m
+GRAY =			\033[0;90m
+RED =			\033[0;91m
+GREEN =			\033[0;92m
+YELLOW =		\033[0;93m
+BLUE =			\033[0;94m
+MAGENTA =		\033[0;95m
+CYAN =			\033[0;96m
+WHITE =			\033[0;97m
+BLACK =			\033[0;99m
+ORANGE =		\033[38;5;209m
+BROWN =			\033[38;2;184;143;29m
+DARK_GRAY =		\033[38;5;234m
+MID_GRAY =		\033[38;5;245m
+DARK_GREEN =	\033[38;2;75;179;82m
+DARK_YELLOW =	\033[38;5;143m
+GREEN := 		\033[0;92m
 
 # -=-=-=-=-    FILES -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #
 
-SRCS		=	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c 	\
+SRC			=	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c 	\
 			ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c 	\
 			ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c\
 			ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c 		\
@@ -21,10 +41,16 @@ SRCS		=	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c 	\
 			get_next_line.c ft_atoi_base.c cucufu.c free_array.c			\
 			print_array.c ft_iscntrl.c ft_realloc.c
 
+SRCDIR		=	src
+SRCS		=	$(addprefix $(SRCDIR)/, $(SRC))
 			
-OBJS		:=	$(SRCS:%.c=%.o)
+OBJDIR		=	.obj
+OBJS		=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 
-HEADER		=	libft.h ft_printf.h
+DEPDIR		=	.dep
+DEPS		=	$(addprefix $(DEPDIR)/, $(SRC:.c=.d))
+
+HEADER		=	inc/libft.h inc/ft_printf.h
 
 MAKE		=	Makefile
 			
@@ -33,22 +59,29 @@ MAKE		=	Makefile
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g
 INCLUDES	= -I./
+RM			= rm -fr
 
 # -=-=-=-=-    TARGETS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADER) $(SRCS) $(MAKE)
-	ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
+	@echo "$(GREEN)Created ${NAME} ✓$(DEF_COLOR)\n"
 	
-%.o: %.c $(HEADER) $(MAKE)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER) $(MAKE)
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) $(INCLUDES) -MT $@ -MMD -MP -c $< -o $@
+	@mkdir -p $(DEPDIR)
+	@mv $(patsubst %.o,%.d,$@) $(subst $(OBJDIR),$(DEPDIR),$(@D))/
 	
+-include $(DEPS)
+
 clean:
-	/bin/rm -f $(OBJS)
+	@${RM} .dep .obj
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@${RM} .dep .obj ${NAME}
 
 re: fclean all
 

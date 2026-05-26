@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controls.c                                         :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/25 13:48:22 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 10:52:26 by nicolas          ###   ########.fr       */
+/*   Created: 2024/09/23 16:31:23 by nponchon          #+#    #+#             */
+/*   Updated: 2026/05/26 10:45:39 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ft_select.h"
+#include "../inc/libft.h"
 
-void	control_key(struct s_select *s, int key)
+t_list	*ft_lstnew(void *content)
 {
-	if (key == KEY_ESCAPE)
-	{
-		disable_raw_mode();
-		log_info(s, "Exiting program");
-		exit(EXIT_SUCCESS);
-	}
-	else if (key == KEY_SPACE)
-		log_info(s, "Space key pressed");
-	else if (key == KEY_ENTER)
-		log_info(s, "Enter key pressed");
-	else if (key == KEY_BACKSPACE || key == KEY_DELETE)
-		log_info(s, "Delete key pressed");
+	t_list	*new_list;
+
+	new_list = malloc(sizeof(t_list));
+	if (!new_list)
+		return (NULL);
+	new_list->content = content;
+	new_list->next = NULL;
+	return (new_list);
 }
+
+/*
+int	main(void)
+{
+	char *str = "TEST";
+
+	t_list *new = ft_lstnew(str);
+	printf("%s\n", (char *)new->content);
+	return (0);
+}*/

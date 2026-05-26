@@ -6,12 +6,11 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 16:45:27 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 10:52:21 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
-#include "../libft/libft.h"
 
 void	fatal_error(const char *str)
 {

@@ -6,12 +6,11 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 12:36:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/25 18:01:23 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 10:52:14 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
-#include "../libft/libft.h"
 
 void	tc_invert_colours(struct s_select *s)
 {
