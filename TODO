@@ -1,6 +1,5 @@
 # TODO
 
-- Handle more precisely the ESC key (currently, it is treated as a single byte, but it can be followed by other bytes for arrow keys, etc.). This results in a delay when pressing the ESC key, as the program waits for additional bytes that never come, or false positives that exit the program when idle.
 - Implement the "smul" and "rmul" termcap capabilities for starting and stopping underline mode.
 - Remove the "us" and "ue" termcap capabilities, as they are not used in the current implementation.
 - Implement the selection of arguments with the space key, and the deletion of arguments with the delete key.

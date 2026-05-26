@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 12:36:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 10:52:14 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 11:19:23 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	tc_set_cursor_visibility(struct s_select *s, int invisible)
 void	tc_putstr(struct s_select *s, const char *str)
 {
 	append_buffer(s, str, ft_strlen(str));
+}
+
+void	tc_putchar(struct s_select *s, char c)
+{
+	append_buffer(s, (char[]){c, '\0'}, 1);
 }
 
 void	tc_putendl(struct s_select *s)

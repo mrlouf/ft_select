@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 10:51:35 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 12:13:16 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@
 # include <signal.h>
 
 # include "../libft/inc/libft.h"
+
+/* MACROS */
+
+# define HEADER_INFO "ft_select - A terminal-based selection tool"
+# define HEADER_LEN sizeof(HEADER_INFO) - 1
+# define TILDE "~ "
+# define TILDE_OFFSET 2
 
 /* STRUCTURES */
 
@@ -120,6 +127,7 @@ void	clear_buffer(struct s_select *s);
 // termcap.c
 void	tc_move_cursor(struct s_select *s);
 void	tc_clear_screen(struct s_select *s);
+void	tc_putchar(struct s_select *s, char c);
 void	tc_putstr(struct s_select *s, const char *str);
 void	tc_putendl(struct s_select *s);
 void	tc_set_cursor_visibility(struct s_select *s, int visible);

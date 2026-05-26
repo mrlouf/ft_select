@@ -6,12 +6,14 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 10:51:47 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 12:14:07 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 
+// Keep the original terminal settings so we can restore them on exit
+// This is global so it can be accessed from signal handlers
 struct termios	g_orig_termios;
 
 /* 
@@ -67,6 +69,7 @@ static void	initialise_select(struct s_select *s, int ac, char **av)
 		exit(EXIT_FAILURE);
 	s->buf = (struct s_string){NULL, 0};
 	s->termcaps = (struct s_termcaps){0};
+	s->cursor = (struct s_cursor){2, 1};
 	s->av = av + 1;
 	s->ac = ac - 1;
 	s->fd_tty = -1;
@@ -109,10 +112,17 @@ int	main(int ac, char **av)
 {
 	struct s_select	s;
 
+	if (ac < 2)
+	{
+		ft_putstr_fd("Error: at least one argument required\n", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
 	initialise_select(&s, ac, av);
 	initialise_termcaps(&s);
 	setup_signal_handlers();
 	ft_select(&s);
+	if (s.buf.str)
+		free(s.buf.str);
 	if (s.fd_logfile != -1)
 		close(s.fd_logfile);
 	return (0);
