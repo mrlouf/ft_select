@@ -29,7 +29,9 @@ SRC				= 	main.c 	\
 					render.c 	\
 					conf.c 		\
 					buffer.c 	\
-					termcap.c	\
+					termcap/cursor.c	\
+					termcap/termcap.c	\
+					termcap/print.c
 
 INCLUDE			=	./inc/ft_select.h
 
@@ -50,18 +52,20 @@ CC				= cc
 RM				= rm -fr
 CFLAGS			= -g -fsanitize=address -Wall -Wextra -Werror
 
+all:	make_libft mkdir_dep ${NAME}
+	@rm -f $(LOGFILE)
+
 $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
-	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -MT $@ -MMD -MP -c $< -o $@
-	@mkdir -p $(DEPDIR)
 	@mv $(patsubst %.o,%.d,$@) $(subst $(OBJDIR),$(DEPDIR),$(@D))/
 	@echo "${BLUE} ◎ $(BROWN)Compiling   ${MAGENTA}→   $(CYAN)$< $(DEF_COLOR)"
 
-all:	make_libft ${NAME}
-	@rm -f $(LOGFILE)
-
 make_libft:
 	@make -C libft
+
+mkdir_dep:
+	@mkdir -p $(OBJDIR)/termcap
+	@mkdir -p $(DEPDIR)/termcap
 
 -include $(DEPS)
 
