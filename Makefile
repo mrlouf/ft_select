@@ -50,7 +50,7 @@ LOGFILE			=	./ft_select.log
 
 CC				= cc
 RM				= rm -fr
-CFLAGS			= -g -fsanitize=address -Wall -Wextra -Werror
+CFLAGS			= -g -Wall -Wextra -Werror
 
 all:	make_libft mkdir_dep ${NAME}
 	@rm -f $(LOGFILE)
