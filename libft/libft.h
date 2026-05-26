@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:20:08 by nponchon          #+#    #+#             */
-/*   Updated: 2026/05/14 21:23:53 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 09:59:49 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			ft_atoi_base(char *str, int base);
 
 void		*ft_calloc(size_t nmemb, size_t size);
 char		*ft_strdup(char *str);
-void		*ft_realloc(void *ptr, size_t new_size);
+void		*ft_realloc(void *ptr, size_t new_size, size_t old_size);
 
 // ADDITIONAL FUNCTIONS
 

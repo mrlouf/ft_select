@@ -6,13 +6,13 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 21:22:44 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/14 21:23:17 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 09:59:34 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_realloc(void *ptr, size_t new_size)
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 {
 	void	*new_ptr;
 
@@ -26,7 +26,7 @@ void	*ft_realloc(void *ptr, size_t new_size)
 		return (NULL);
 	if (ptr)
 	{
-		ft_memcpy(new_ptr, ptr, new_size);
+		ft_memcpy(new_ptr, ptr, old_size);  // ← old_size, pas new_size
 		free(ptr);
 	}
 	return (new_ptr);
