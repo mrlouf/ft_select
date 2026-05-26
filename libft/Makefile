@@ -67,7 +67,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADER) $(SRCS) $(MAKE)
 	@ar rcs $(NAME) $(OBJS)
-	@echo "$(GREEN)Created ${NAME} ✓$(DEF_COLOR)\n"
+	@echo "\n$(GREEN)Created ${NAME} ✓$(DEF_COLOR)\n"
 	
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER) $(MAKE)
 	@mkdir -p $(@D)

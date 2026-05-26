@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 14:51:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 12:19:06 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 17:06:51 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static void	handle_up_key(struct s_select *s)
 {
 	if (s->ac == 0)
 		return ;
-	if (s->cursor.y > 1)
+	if (s->cursor.y > 1 && s->cursor.y <= s->ac)
 		s->cursor.y--;
 	else
-		s->cursor.y = s->ac - 1;
+		s->cursor.y = s->ac;
 	if (s->cursor.x > (int)ft_strlen(s->av[s->cursor.y - 1]) - 1 + TILDE_OFFSET)
 		s->cursor.x = ft_strlen(s->av[s->cursor.y - 1]) - 1 + TILDE_OFFSET;
 }

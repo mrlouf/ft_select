@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 12:13:16 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 18:57:13 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_select
 	struct winsize		win_size;
 
 	char				**av;
+	unsigned char		selected;
 	int					ac;
 
 	int					fd_tty;
@@ -77,6 +78,7 @@ typedef struct s_select
 /* GLOBAL VARIABLES */
 
 extern struct termios	g_orig_termios;
+extern int				g_fd_tty;
 
 /* ENUMERATIONS */
 
@@ -125,6 +127,7 @@ void	write_buffer(int fd, struct s_string buf);
 void	clear_buffer(struct s_select *s);
 
 // termcap.c
+int		tc_callback(int c);
 void	tc_move_cursor(struct s_select *s);
 void	tc_clear_screen(struct s_select *s);
 void	tc_putchar(struct s_select *s, char c);

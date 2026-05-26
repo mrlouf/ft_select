@@ -1,5 +1,9 @@
 # TODO
 
 - Implement the "smul" and "rmul" termcap capabilities for starting and stopping underline mode.
+
 - Remove the "us" and "ue" termcap capabilities, as they are not used in the current implementation.
-- Implement the selection of arguments with the space key, and the deletion of arguments with the delete key.
+
+- Ensure compatibility with selected flag in case some arguments are deleted, ie., shift the selected flag to the left if the selected argument is deleted.
+
+- Make the cursors invisible / inverted / no colours except underline when it is located on an unselected argument.

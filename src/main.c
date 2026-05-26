@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 12:14:07 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 18:43:38 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 // Keep the original terminal settings so we can restore them on exit
 // This is global so it can be accessed from signal handlers
 struct termios	g_orig_termios;
+int				g_fd_tty = -1;
 
 /* 
 	The main loop of the ft_select program.
@@ -24,6 +25,7 @@ struct termios	g_orig_termios;
 static int	ft_select(struct s_select *s)
 {
 	enable_raw_mode();
+	tc_clear_screen(s);
 	while (1)
 	{
 		if (get_window_size(s) == -1)
@@ -39,9 +41,9 @@ static int	check_environment(void)
 {
 	char	*term;
 
-	if (!isatty(STDIN_FILENO))
+	if (!isatty(g_fd_tty))
 	{
-		ft_putstr_fd("Error: stdin is not a tty\n", STDERR_FILENO);
+		ft_putstr_fd("Error: /dev/tty is not a tty\n", STDERR_FILENO);
 		return (-1);
 	}
 	term = getenv("TERM");
@@ -55,7 +57,7 @@ static int	check_environment(void)
 		ft_putstr_fd("Error: termcap database inaccessible\n", STDERR_FILENO);
 		return (-1);
 	}
-	if (tcgetattr(STDIN_FILENO, &g_orig_termios) == -1)
+	if (tcgetattr(g_fd_tty, &g_orig_termios) == -1)
 	{
 		ft_putstr_fd("Error: tcgetattr failed\n", STDERR_FILENO);
 		return (-1);
@@ -65,17 +67,17 @@ static int	check_environment(void)
 
 static void	initialise_select(struct s_select *s, int ac, char **av)
 {
+	g_fd_tty = open("/dev/tty", O_RDWR);
+	if (g_fd_tty == -1)
+		exit(EXIT_FAILURE);
 	if (check_environment() == -1)
 		exit(EXIT_FAILURE);
 	s->buf = (struct s_string){NULL, 0};
 	s->termcaps = (struct s_termcaps){0};
 	s->cursor = (struct s_cursor){2, 1};
 	s->av = av + 1;
+	s->selected = 0^0;
 	s->ac = ac - 1;
-	s->fd_tty = -1;
-	s->fd_tty = open("/dev/tty", O_RDWR);
-	if (s->fd_tty == -1)
-		exit(EXIT_FAILURE);
 	s->fd_logfile = -1;
 	s->fd_logfile = open("ft_select.log", O_WRONLY | O_CREAT, 0644);
 	if (s->fd_logfile == -1)
@@ -112,7 +114,7 @@ int	main(int ac, char **av)
 {
 	struct s_select	s;
 
-	if (ac < 2)
+	if (ac < 1)
 	{
 		ft_putstr_fd("Error: at least one argument required\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);

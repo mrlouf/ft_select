@@ -71,7 +71,7 @@ mkdir_dep:
 
 ${NAME}: ${OBJS} Makefile
 	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -ltinfo -o $(NAME)
-	@echo "$(GREEN)Created ${NAME} ✓$(DEF_COLOR)\n"
+	@echo "\n$(GREEN)Created ${NAME} ✓$(DEF_COLOR)\n"
 
 clean:
 	@${RM} .dep .obj

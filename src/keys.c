@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:43:28 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 10:36:42 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 18:44:21 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,18 @@ static int	get_arrow_key(int key)
 	Read a key input from the user and return it.
 	This function will block until a key is pressed.
 */
-static int	read_key(void)
+static int	read_key(struct s_select *s)
 {
 	int		nread;
 	char	seq[4];
 
-	nread = read(STDIN_FILENO, seq, 4);
+	(void)s;
+	nread = read(g_fd_tty, seq, 4);
 	if (nread == -1 && errno != EAGAIN && errno != EINTR)
 		fatal_error("could not read key input");
 	if (nread == 1)
 	{
-		if (read(STDIN_FILENO, seq + 1, 3) == -1
+		if (read(g_fd_tty, seq + 1, 3) == -1
 			&& errno != EAGAIN && errno != EINTR)
 			fatal_error("could not read key input");
 		if (seq[0] == 27)
@@ -74,7 +75,7 @@ void	process_keypress(struct s_select *s)
 {
 	int	key;
 
-	key = read_key();
+	key = read_key(s);
 	if (is_control_key(key))
 	{
 		control_key(s, key);
