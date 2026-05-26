@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:38:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 09:47:47 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 10:35:52 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,6 @@ void	setup_signal_handlers(void)
 	signal(SIGKILL, sig_kill);
 	signal(SIGQUIT, sig_kill);
 	signal(SIGABRT, sig_kill);
-	signal(SIGFPE, sig_kill);
-	signal(SIGILL, sig_kill);
-	signal(SIGINT, sig_kill);
-	// signal(SIGSEGV, sig_kill);
 	signal(SIGTERM, sig_kill);
 	signal(SIGWINCH, sig_resize);
 	signal(SIGTSTP, sig_suspend);

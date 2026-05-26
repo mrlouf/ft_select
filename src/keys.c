@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:43:28 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 09:35:45 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/26 10:36:42 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static int	read_key(void)
 		fatal_error("could not read key input");
 	if (nread == 1)
 	{
-		if (read(STDIN_FILENO, seq + 1, 3) == -1 && errno != EAGAIN && errno != EINTR)
+		if (read(STDIN_FILENO, seq + 1, 3) == -1
+			&& errno != EAGAIN && errno != EINTR)
 			fatal_error("could not read key input");
 		if (seq[0] == 27)
 			return (KEY_ESCAPE);
