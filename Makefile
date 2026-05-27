@@ -67,6 +67,11 @@ mkdir_dep:
 	@mkdir -p $(OBJDIR)/termcap
 	@mkdir -p $(DEPDIR)/termcap
 
+valgrind: all
+	@valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=valgrind.supp \
+		--log-file=$(LOGFILE) ./$(NAME) option1 option2 option3 option4 option5 option6 option7 option8 option9 option10
+	@echo "\n${BLUE} ◎ $(GREEN)Valgrind analysis completed. Check the log file: $(LOGFILE) ${BLUE}◎$(DEF_COLOR)\n"
+
 -include $(DEPS)
 
 ${NAME}: ${OBJS} Makefile
@@ -85,4 +90,4 @@ fclean:
 
 re: fclean all 
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re make_libft mkdir_dep valgrind

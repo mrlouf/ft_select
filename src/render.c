@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:54:14 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 18:41:46 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/27 11:25:13 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ static void	write_single_argument(struct s_select *s, int i)
 	{
 		if (s->selected & (1 << i))
 			tc_invert_colours(s);
-		if (i + 1 == s->cursor.y && j + TILDE_OFFSET == s->cursor.x)
-		{
+		if (i + 1 == s->cursor.y)
 			tc_start_underline(s);
-			tc_invert_colours(s);
-		}
 		tc_putchar(s, s->av[i][j]);
-		tc_stop_underline(s);
+		if (i + 1 == s->cursor.y)
+			tc_stop_underline(s);
 		tc_reset_colours(s);
 		j++;
 	}
@@ -55,11 +53,11 @@ static void	iterate_over_arguments(struct s_select *s)
 static void	fill_buffer(struct s_select *s)
 {
 	tc_clear_screen(s);
+	tc_set_cursor_visibility(s, 0);
 	tc_putstr(s, HEADER_INFO);
 	tc_putendl(s);
 	iterate_over_arguments(s);
 	tc_move_cursor(s);
-	tc_set_cursor_visibility(s, 1);
 }
 
 void	render_terminal(struct s_select *s)
