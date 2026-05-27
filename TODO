@@ -4,8 +4,4 @@
 
 - Remove the "us" and "ue" termcap capabilities, as they are not used in the current implementation.
 
-- Ensure compatibility with selected flag in case some arguments are deleted, ie., shift the selected flag to the left if the selected argument is deleted.
-
-- Make the cursors invisible / inverted / no colours except underline when it is located on an unselected argument.
-
 - Manage the suspend/resume signals to properly restore the terminal state when the program is suspended and resumed.

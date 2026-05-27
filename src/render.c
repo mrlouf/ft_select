@@ -6,7 +6,7 @@
 /*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:54:14 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/27 11:25:13 by nponchon         ###   ########.fr       */
+/*   Updated: 2026/05/27 17:30:21 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	iterate_over_arguments(struct s_select *s)
 static void	fill_buffer(struct s_select *s)
 {
 	tc_clear_screen(s);
-	tc_set_cursor_visibility(s, 0);
+	tc_hide_cursor(s);
 	tc_putstr(s, HEADER_INFO);
 	tc_putendl(s);
 	iterate_over_arguments(s);

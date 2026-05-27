@@ -6,7 +6,7 @@
 /*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 12:36:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/27 11:33:33 by nponchon         ###   ########.fr       */
+/*   Updated: 2026/05/27 17:11:02 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	tc_stop_underline(struct s_select *s)
 
 /*
 	Callback function for tputs that writes to /dev/tty instead of stdout.
-	Needs to match the signature expected by tputs, which is int (*putc)(int),
+	Needs to match the signature expected by tputs, which is int (*f)(int),
 	hence why ft_putchar_fd cannot be used directly.
 */
 int	tc_callback(int c)

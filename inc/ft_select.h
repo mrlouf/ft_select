@@ -6,7 +6,7 @@
 /*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/27 11:30:43 by nponchon         ###   ########.fr       */
+/*   Updated: 2026/05/27 17:29:48 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_select
 
 extern struct termios	g_orig_termios;
 extern int				g_fd_tty;
+extern char				*g_termcap_ve;
 
 /* ENUMERATIONS */
 
@@ -132,7 +133,8 @@ void	tc_clear_screen(struct s_select *s);
 void	tc_putchar(struct s_select *s, char c);
 void	tc_putstr(struct s_select *s, const char *str);
 void	tc_putendl(struct s_select *s);
-void	tc_set_cursor_visibility(struct s_select *s, int visible);
+void	tc_hide_cursor(struct s_select *s);
+void	tc_show_cursor(struct s_select *s);
 void	tc_invert_colours(struct s_select *s);
 void	tc_reset_colours(struct s_select *s);
 void	tc_start_underline(struct s_select *s);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:38:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 17:12:24 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/27 18:29:31 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,17 @@ static void	sig_resize(int signum)
 void	sig_suspend(int signum)
 {
 	(void)signum;
+	if (g_termcap_ve)
+        tputs(g_termcap_ve, 1, tc_callback);
+	tcsetattr(g_fd_tty, TCSANOW, &g_orig_termios);
+	signal(SIGTSTP, SIG_DFL);
 }
 
 static void	sig_resume(int signum)
 {
 	(void)signum;
+	enable_raw_mode();
+	setup_signal_handlers();
 }
 
 void	setup_signal_handlers(void)
@@ -45,4 +51,5 @@ void	setup_signal_handlers(void)
 	signal(SIGTERM, sig_kill);
 	signal(SIGWINCH, sig_resize);
 	signal(SIGCONT, sig_resume);
+	signal(SIGTSTP, sig_suspend);
 }
