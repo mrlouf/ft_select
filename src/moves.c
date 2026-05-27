@@ -28,7 +28,7 @@ static void	handle_down_key(struct s_select *s)
 {
 	if (s->ac == 0)
 		return ;
-	if (s->cursor.y < s->ac )
+	if (s->cursor.y < s->ac)
 		s->cursor.y++;
 	else
 		s->cursor.y = 1;
@@ -41,7 +41,8 @@ static void	handle_right_key(struct s_select *s)
 	if (s->ac == 0)
 		return ;
 	if (s->cursor.x < s->win_size.ws_col - 1
-		&& s->cursor.x < (int)ft_strlen(s->av[s->cursor.y - 1]) - 1 + TILDE_OFFSET)
+		&& s->cursor.x < (int)ft_strlen(s->av[s->cursor.y - 1])
+		- 1 + TILDE_OFFSET)
 		s->cursor.x++;
 }
 

@@ -76,7 +76,7 @@ static void	initialise_select(struct s_select *s, int ac, char **av)
 	s->termcaps = (struct s_termcaps){0};
 	s->cursor = (struct s_cursor){2, 1};
 	s->av = av + 1;
-	s->selected = 0^0;
+	s->selected = 0 ^ 0;
 	s->ac = ac - 1;
 	s->fd_logfile = -1;
 	s->fd_logfile = open("ft_select.log", O_WRONLY | O_CREAT, 0644);

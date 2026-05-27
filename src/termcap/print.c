@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/ft_select.h"
+#include "../../inc/ft_select.h"
 
 void	tc_putstr(struct s_select *s, const char *str)
 {
@@ -19,7 +19,7 @@ void	tc_putstr(struct s_select *s, const char *str)
 
 void	tc_putchar(struct s_select *s, char c)
 {
-	append_buffer(s, (char[]){c, '\0'}, 1);
+	append_buffer(s, (char []){c, '\0'}, 1);
 }
 
 void	tc_putendl(struct s_select *s)

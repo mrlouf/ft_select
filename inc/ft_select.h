@@ -29,7 +29,6 @@
 /* MACROS */
 
 # define HEADER_INFO "ft_select - A terminal-based selection tool"
-# define HEADER_LEN sizeof(HEADER_INFO) - 1
 # define TILDE "~ "
 # define TILDE_OFFSET 2
 

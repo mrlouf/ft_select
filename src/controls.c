@@ -16,7 +16,8 @@
 	Deletes the currently selected argument from the list,
 	and shifts the remaining arguments up. No free since we are still
 	using the original argv pointers ie. working on the stack.
-	If there are no more arguments left after deletion, the program exits gracefully.
+	If there are no more arguments left after deletion,
+	the program exits gracefully.
 */
 static void	delete_current_argument(struct s_select *s)
 {
@@ -53,13 +54,14 @@ static void	select_argument(struct s_select *s)
 static void	send_selected_arguments_to_stdout(struct s_select *s)
 {
 	int	i;
-	int first;
-	
+	int	first;
+
 	i = 0;
 	first = 1;
 	while (i < s->ac)
 	{
-		if (s->selected & (1 << i)) {
+		if (s->selected & (1 << i))
+		{
 			if (!first)
 				ft_putstr_fd(" ", STDOUT_FILENO);
 			ft_putstr_fd(s->av[i], STDOUT_FILENO);
@@ -91,7 +93,6 @@ void	control_key(struct s_select *s, int key)
 	}
 	else if (key == KEY_BACKSPACE || key == KEY_DELETE)
 	{
-		// TODO: output to STDOUT the selected argument
 		delete_current_argument(s);
 		log_info(s, "Delete key pressed");
 	}

@@ -29,12 +29,11 @@ static int	get_arrow_key(int key)
 	Read a key input from the user and return it.
 	This function will block until a key is pressed.
 */
-static int	read_key(struct s_select *s)
+static int	read_key(void)
 {
 	int		nread;
 	char	seq[4];
 
-	(void)s;
 	nread = read(g_fd_tty, seq, 4);
 	if (nread == -1 && errno != EAGAIN && errno != EINTR)
 		fatal_error("could not read key input");
@@ -75,7 +74,7 @@ void	process_keypress(struct s_select *s)
 {
 	int	key;
 
-	key = read_key(s);
+	key = read_key();
 	if (is_control_key(key))
 	{
 		control_key(s, key);
