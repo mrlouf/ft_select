@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 12:36:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 18:57:04 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/27 11:33:33 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	tc_reset_colours(struct s_select *s)
 
 void	tc_start_underline(struct s_select *s)
 {
-	append_buffer(s, "\E[4m", 4);
+	append_buffer(s, "\033[4m", 4);
 }
 
 void	tc_stop_underline(struct s_select *s)
 {
-	append_buffer(s, "\E[24m", 5);
+	append_buffer(s, "\033[24m", 5);
 }
 
 /*

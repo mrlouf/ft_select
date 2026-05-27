@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 13:48:22 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 18:38:28 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/27 12:57:19 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+
+/* 
+	This function set the n-th bit of the selected variable to 0,
+	effectively deselecting the argument at index n.
+	The left part (lower) keeps all bits below n, and the right part (upper)
+	shifts all bits above n down by one to fill the gap.
+*/
+static u_int64_t	shift_selected_bits(u_int64_t bits, int n)
+{
+	u_int64_t	lower;
+	u_int64_t	upper;
+
+	lower = bits & ((1ULL << n) - 1);
+	upper = bits >> (n + 1);
+	return (lower | (upper << n));
+}
 
 /* 
 	Deletes the currently selected argument from the list,
@@ -31,6 +47,7 @@ static void	delete_current_argument(struct s_select *s)
 		exit(EXIT_SUCCESS);
 	}
 	i = s->cursor.y - 1;
+	s->selected = shift_selected_bits(s->selected, i);
 	while (i < s->ac)
 	{
 		s->av[i] = s->av[i + 1];
@@ -43,7 +60,7 @@ static void	select_argument(struct s_select *s)
 {
 	if (s->ac == 0)
 		return ;
-	s->selected ^= (1 << (s->cursor.y - 1));
+	s->selected ^= (1ULL << (s->cursor.y - 1));
 	if (s->cursor.y < s->ac)
 		s->cursor.y++;
 	else
@@ -60,7 +77,7 @@ static void	send_selected_arguments_to_stdout(struct s_select *s)
 	first = 1;
 	while (i < s->ac)
 	{
-		if (s->selected & (1 << i))
+		if (s->selected & (1ULL << i))
 		{
 			if (!first)
 				ft_putstr_fd(" ", STDOUT_FILENO);

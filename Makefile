@@ -68,7 +68,7 @@ mkdir_dep:
 	@mkdir -p $(DEPDIR)/termcap
 
 valgrind: all
-	@valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=valgrind.supp \
+	@valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=tests/valgrind.supp \
 		--log-file=$(LOGFILE) ./$(NAME) option1 option2 option3 option4 option5 option6 option7 option8 option9 option10
 	@echo "\n${BLUE} ◎ $(GREEN)Valgrind analysis completed. Check the log file: $(LOGFILE) ${BLUE}◎$(DEF_COLOR)\n"
 

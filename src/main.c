@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 18:43:38 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/27 12:41:48 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ int	main(int ac, char **av)
 {
 	struct s_select	s;
 
-	if (ac < 1)
+	if (ac < 1 || ac > 64)
 	{
-		ft_putstr_fd("Error: at least one argument required\n", STDERR_FILENO);
+		ft_putstr_fd("Usage: ./ft_select args<1-64>\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	initialise_select(&s, ac, av);
