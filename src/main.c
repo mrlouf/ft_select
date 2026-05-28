@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/27 17:35:52 by nponchon         ###   ########.fr       */
+/*   Updated: 2026/05/28 09:11:19 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,6 @@ static void	initialise_select(struct s_select *s, int ac, char **av)
 	s->av = av + 1;
 	s->selected = 0 ^ 0;
 	s->ac = ac - 1;
-	s->fd_logfile = -1;
-	s->fd_logfile = open("ft_select.log", O_WRONLY | O_CREAT, 0644);
-	if (s->fd_logfile == -1)
-		fatal_error("Unable to open log file");
 }
 
 /* 
@@ -127,7 +123,5 @@ int	main(int ac, char **av)
 	ft_select(&s);
 	if (s.buf.str)
 		free(s.buf.str);
-	if (s.fd_logfile != -1)
-		close(s.fd_logfile);
 	return (0);
 }

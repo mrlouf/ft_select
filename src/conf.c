@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/26 18:57:42 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/28 09:12:30 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,6 @@ int	get_window_size(struct s_select *s)
 		return (0);
 	}
 	return (-1);
-}
-
-void	log_info(struct s_select *s, const char *str)
-{
-	if (s->fd_logfile != -1)
-	{
-		ft_putstr_fd("LOG: ", s->fd_logfile);
-		ft_putendl_fd((char *)str, s->fd_logfile);
-	}
 }
 
 /* 

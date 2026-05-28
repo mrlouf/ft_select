@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 13:48:22 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/27 12:57:19 by nponchon         ###   ########.fr       */
+/*   Updated: 2026/05/28 09:12:11 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,24 +93,20 @@ void	control_key(struct s_select *s, int key)
 	if (key == KEY_ESCAPE)
 	{
 		disable_raw_mode();
-		log_info(s, "Exiting program");
 		exit(EXIT_SUCCESS);
 	}
 	else if (key == KEY_SPACE)
 	{
 		select_argument(s);
-		log_info(s, "Space key pressed");
 	}
 	else if (key == KEY_ENTER)
 	{
 		send_selected_arguments_to_stdout(s);
 		disable_raw_mode();
-		log_info(s, "Enter key pressed");
 		exit(EXIT_SUCCESS);
 	}
 	else if (key == KEY_BACKSPACE || key == KEY_DELETE)
 	{
 		delete_current_argument(s);
-		log_info(s, "Delete key pressed");
 	}
 }
