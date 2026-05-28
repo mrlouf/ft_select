@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:54:14 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/27 20:08:11 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/28 08:44:44 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ static void	set_text_attributes(struct s_select *s, int i)
 	if (!(stat(s->av[i], &info)))
 	{
 		if (S_ISDIR(info.st_mode))
-			tc_putstr(s, "\033[34m");
+			tc_putstr(s, C_BLUE);
 		else if (info.st_mode & S_IXUSR)
-			tc_putstr(s, "\033[32m");
+			tc_putstr(s, C_GREEN);
 		if (S_ISLNK(info.st_mode))
-			tc_putstr(s, "\033[36m");
+			tc_putstr(s, C_CYAN);
 		else if (S_ISSOCK(info.st_mode))
-			tc_putstr(s, "\033[35m");
+			tc_putstr(s, C_MAGENTA);
 		else if (S_ISFIFO(info.st_mode))
-			tc_putstr(s, "\033[1;33m");
+			tc_putstr(s, C_YELLOW);
 		else if (S_ISCHR(info.st_mode))
-			tc_putstr(s, "\033[1;33m");
+			tc_putstr(s, C_YELLOW);
 		else if (S_ISBLK(info.st_mode))
-			tc_putstr(s, "\033[1;33m");
+			tc_putstr(s, C_YELLOW);
 	}
 }
 

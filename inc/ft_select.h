@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/27 20:00:52 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/28 08:57:13 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@
 # define HEADER_INFO "ft_select - A terminal-based selection tool"
 # define TILDE "~ "
 # define TILDE_OFFSET 2
+
+# define C_GREEN	"\033[32m"
+# define C_BLUE		"\033[34m"
+# define C_CYAN		"\033[36m"
+# define C_MAGENTA	"\033[35m"
+# define C_YELLOW	"\033[33m"
+# define C_RESET	"\033[0m"
+
+# define TC_UNDERLINE_START	"\033[4m"
+# define TC_UNDERLINE_END	"\033[24m"
 
 /* STRUCTURES */
 
