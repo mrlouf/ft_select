@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:54:14 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/28 11:21:16 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/28 12:41:44 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	write_single_argument(struct s_select *s, int i)
 	j = 0;
 	while (j < (int)ft_strlen(s->av[i]) && j < s->win_size.ws_col - 1)
 	{
-		if (s->selected & (1 << i))
+		if (s->selected[i])
 			tc_invert_colours(s);
 		if (i + 1 == s->cursor.y)
 			tc_start_underline(s);

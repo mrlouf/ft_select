@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/28 11:30:00 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/28 12:34:05 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_select
 	struct winsize		win_size;
 
 	char				**av;
-	u_int64_t			selected;
+	u_int8_t			*selected;
 	int					ac;
 
 	int					fd_tty;

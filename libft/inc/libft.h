@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:20:08 by nponchon          #+#    #+#             */
-/*   Updated: 2026/05/26 09:59:49 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/28 12:40:21 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <ctype.h>
 # include <string.h>
 # include <stdarg.h>
+# include <sys/types.h>
+
 # include "ft_printf.h"
 
 typedef struct s_list
@@ -111,5 +113,8 @@ char		*ft_read_buffer(int fd, char *stash, char *buffer);
 void		cucufu(void);
 void		free_array(void **array);
 void		print_array(char **array);
+
+//	BITS
+u_int64_t	ft_shiftright_nbits(u_int64_t bits, int n);
 
 #endif

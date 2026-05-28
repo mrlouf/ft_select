@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/28 11:30:10 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/28 12:56:02 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ static void	initialise_select(struct s_select *s, int ac, char **av)
 	s->termcaps = (struct s_termcaps){0};
 	s->cursor = (struct s_cursor){2, 1};
 	s->av = av + 1;
-	s->selected = 0 ^ 0;
+	s->selected = (u_int8_t *)malloc(ac);
+	if (!s->selected)
+		exit(EXIT_FAILURE);
+	ft_bzero(s->selected, ac);
 	s->ac = ac - 1;
 }
 
@@ -110,9 +113,10 @@ int	main(int ac, char **av)
 {
 	struct s_select	s;
 
-	if (ac < 1 || ac > 64)
+	s = (struct s_select){0};
+	if (ac < 1)
 	{
-		ft_putstr_fd("Usage: ./ft_select args<1-64>\n", STDERR_FILENO);
+		ft_putstr_fd("Usage: ./ft_select <args>\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	initialise_select(&s, ac, av);
@@ -121,5 +125,7 @@ int	main(int ac, char **av)
 	ft_select(&s);
 	if (s.buf.str)
 		free(s.buf.str);
+	if (s.selected)
+		free(s.selected);
 	return (0);
 }
