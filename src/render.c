@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 19:54:14 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/28 08:44:44 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/28 11:21:16 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static void	iterate_over_arguments(struct s_select *s)
 			i++;
 			continue ;
 		}
-
 		write_single_argument(s, i);
 		tc_reset_colours(s);
 		i++;

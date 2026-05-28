@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/28 08:57:13 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/28 11:30:00 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ typedef struct s_select
 
 extern struct termios	g_orig_termios;
 extern int				g_fd_tty;
-extern char				*g_termcap_ve;
 
 /* ENUMERATIONS */
 
@@ -119,7 +118,6 @@ void	setup_signal_handlers(void);
 void	enable_raw_mode(void);
 void	disable_raw_mode(void);
 int		get_window_size(struct s_select *s);
-void	log_info(struct s_select *s, const char *str);
 void	fatal_error(const char *msg);
 
 // keys.c

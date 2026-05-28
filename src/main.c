@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/28 09:11:19 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/28 11:30:10 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 // This is global so it can be accessed from signal handlers
 struct termios	g_orig_termios;
 int				g_fd_tty = -1;
-char			*g_termcap_ve = NULL;
 
 /* 
 	The main loop of the ft_select program.
@@ -103,7 +102,6 @@ static void	initialise_termcaps(struct s_select *s)
 	s->termcaps.me = tgetstr("me", buf);
 	s->termcaps.vi = tgetstr("vi", buf);
 	s->termcaps.ve = tgetstr("ve", buf);
-	g_termcap_ve = s->termcaps.ve;
 	s->termcaps.smul = tgetstr("smul", buf);
 	s->termcaps.rmul = tgetstr("rmul", buf);
 }

@@ -1,7 +1,0 @@
-# TODO
-
-- Implement the "smul" and "rmul" termcap capabilities for starting and stopping underline mode.
-
-- Remove the "us" and "ue" termcap capabilities, as they are not used in the current implementation.
-
-- Manage the suspend/resume signals to properly restore the terminal state when the program is suspended and resumed.
