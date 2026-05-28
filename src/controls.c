@@ -15,7 +15,7 @@
 /* 
 	This function set the n-th bit of the selected variable to 0,
 	effectively deselecting the argument at index n.
-	The left part (lower) keeps all bits below n, and the right part (upper)
+	The right part (lower) keeps all bits below n, and the left part (upper)
 	shifts all bits above n down by one to fill the gap.
 */
 static u_int64_t	shift_selected_bits(u_int64_t bits, int n)
