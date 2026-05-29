@@ -6,7 +6,7 @@
 /*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 13:48:22 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/29 12:34:01 by nponchon         ###   ########.fr       */
+/*   Updated: 2026/05/29 12:48:55 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	send_selected_arguments_to_stdout(struct s_select *s)
 
 void	control_key(struct s_select *s, int key)
 {
-	if (key == KEY_ESCAPE || key ==KEY_ENTER)
+	if (key == KEY_ESCAPE || key == KEY_ENTER)
 	{
 		if (key == KEY_ENTER)
 			send_selected_arguments_to_stdout(s);
