@@ -6,7 +6,7 @@
 /*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/29 12:01:47 by nponchon         ###   ########.fr       */
+/*   Updated: 2026/05/29 12:31:56 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,6 @@ int	main(int ac, char **av)
 	initialise_termcaps(&s);
 	setup_signal_handlers();
 	ft_select(&s);
-	if (s.buf.str)
-		free(s.buf.str);
-	if (s.selected)
-		free(s.selected);
-	if (g_fd_tty != -1)
-		close(g_fd_tty);
+	free_on_exit(&s);
 	return (0);
 }

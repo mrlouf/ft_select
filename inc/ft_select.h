@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_select.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:15:42 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/28 12:34:05 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/29 12:17:51 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	enable_raw_mode(void);
 void	disable_raw_mode(void);
 int		get_window_size(struct s_select *s);
 void	fatal_error(const char *msg);
+void	free_on_exit(struct s_select *s);
 
 // keys.c
 void	process_keypress(struct s_select *s);

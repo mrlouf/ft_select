@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   conf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:20:20 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/28 12:43:24 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/29 12:17:32 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+
+void	free_on_exit(struct s_select *s)
+{
+	if (s->buf.str)
+		free(s->buf.str);
+	if (s->selected)
+		free(s->selected);
+	if (g_fd_tty != -1)
+		close(g_fd_tty);
+}
 
 void	fatal_error(const char *str)
 {

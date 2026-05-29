@@ -6,7 +6,7 @@
 /*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 13:48:22 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/29 12:01:20 by nponchon         ###   ########.fr       */
+/*   Updated: 2026/05/29 12:34:01 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	delete_current_argument(struct s_select *s)
 	if (s->ac == 1)
 	{
 		disable_raw_mode();
+		free_on_exit(s);
 		exit(EXIT_SUCCESS);
 	}
 	i = s->cursor.y - 1;
@@ -79,12 +80,7 @@ void	control_key(struct s_select *s, int key)
 		if (key == KEY_ENTER)
 			send_selected_arguments_to_stdout(s);
 		disable_raw_mode();
-		if (s->selected)
-			free(s->selected);
-		if (s->buf.str)
-			free(s->buf.str);
-		if (g_fd_tty != -1)
-			close(g_fd_tty);
+		free_on_exit(s);
 		exit(EXIT_SUCCESS);
 	}
 	else if (key == KEY_SPACE)
