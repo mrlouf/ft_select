@@ -55,7 +55,7 @@ CFLAGS			= -g -Wall -Wextra -Werror
 all:	make_libft mkdir_dep ${NAME}
 	@rm -f $(LOGFILE)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
+$(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile libft/libft.a
 	@$(CC) $(CFLAGS) -MT $@ -MMD -MP -c $< -o $@
 	@mv $(patsubst %.o,%.d,$@) $(subst $(OBJDIR),$(DEPDIR),$(@D))/
 	@echo "${BLUE} ◎ $(BROWN)Compiling   ${MAGENTA}→   $(CYAN)$< $(DEF_COLOR)"
