@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 18:14:57 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/28 12:56:02 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/29 12:01:47 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	main(int ac, char **av)
 	struct s_select	s;
 
 	s = (struct s_select){0};
-	if (ac < 1)
+	if (ac < 2)
 	{
 		ft_putstr_fd("Usage: ./ft_select <args>\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
@@ -127,5 +127,7 @@ int	main(int ac, char **av)
 		free(s.buf.str);
 	if (s.selected)
 		free(s.selected);
+	if (g_fd_tty != -1)
+		close(g_fd_tty);
 	return (0);
 }

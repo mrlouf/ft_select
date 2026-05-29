@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 13:48:22 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/28 12:55:04 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/29 12:01:20 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,27 +74,21 @@ static void	send_selected_arguments_to_stdout(struct s_select *s)
 
 void	control_key(struct s_select *s, int key)
 {
-	if (key == KEY_ESCAPE)
+	if (key == KEY_ESCAPE || key ==KEY_ENTER)
 	{
+		if (key == KEY_ENTER)
+			send_selected_arguments_to_stdout(s);
 		disable_raw_mode();
 		if (s->selected)
 			free(s->selected);
 		if (s->buf.str)
 			free(s->buf.str);
+		if (g_fd_tty != -1)
+			close(g_fd_tty);
 		exit(EXIT_SUCCESS);
 	}
 	else if (key == KEY_SPACE)
 		select_argument(s);
-	else if (key == KEY_ENTER)
-	{
-		send_selected_arguments_to_stdout(s);
-		disable_raw_mode();
-		if (s->selected)
-			free(s->selected);
-		if (s->buf.str)
-			free(s->buf.str);
-		exit(EXIT_SUCCESS);
-	}
 	else if (key == KEY_BACKSPACE || key == KEY_DELETE)
 		delete_current_argument(s);
 }

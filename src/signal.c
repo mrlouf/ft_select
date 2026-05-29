@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nponchon <nponchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:38:30 by nicolas           #+#    #+#             */
-/*   Updated: 2026/05/28 11:21:55 by nicolas          ###   ########.fr       */
+/*   Updated: 2026/05/29 11:58:04 by nponchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	sig_kill(int signum)
 	ft_putstr_fd("Exiting ft_select: signal received: ", STDERR_FILENO);
 	ft_putnbr_fd(signum, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
+	close(g_fd_tty);
 	exit(EXIT_SUCCESS);
 }
 
